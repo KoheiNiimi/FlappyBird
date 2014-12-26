@@ -4,7 +4,6 @@ using System.Collections;
 public class BirdMovement : MonoBehaviour {
 
 	Vector3 velocity = Vector3.zero;
-	public Vector3 gravity;
 	public Vector3 flapVelocity;
 	public float maxSpeed = 5f;
 	public float forwardSpeed = 1f;
@@ -25,7 +24,6 @@ public class BirdMovement : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		velocity.x = forwardSpeed;
-		velocity += gravity *  Time.deltaTime;
 
 		if (didFlap == true) {
 			didFlap = false;
@@ -38,7 +36,6 @@ public class BirdMovement : MonoBehaviour {
 		velocity = Vector3.ClampMagnitude (velocity, maxSpeed);
 
 		transform.position += velocity * Time.deltaTime;
-
 		float angle = 0;
 
 		if (velocity.y < 0) {
