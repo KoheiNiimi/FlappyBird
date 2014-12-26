@@ -1,0 +1,19 @@
+調査する
+■スクリプト
+BirdMovement.cs
+ーFixedUpdateとはなんだ
+
+CameraTracksPlayer.cs
+
+BgLooper.cs
+
+■Unityの使い方
+Edit>ProjectSettings>Quality
+VSync Countの項目の意味
+
+BoxCollider 2D-Is Trigger
+
+レイヤーにてBackgroundを追加後にそれを設定
+
+Edit>ProjectSettings>Physis2D
+
