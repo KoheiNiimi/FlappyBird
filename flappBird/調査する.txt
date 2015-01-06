@@ -17,3 +17,4 @@ BoxCollider 2D-Is Trigger
 
 Edit>ProjectSettings>Physis2D
 
+死んだときのアニメ追加する場合はlesson5の中盤を参考に
