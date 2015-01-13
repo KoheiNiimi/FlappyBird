@@ -12,7 +12,7 @@ public class BgLooper : MonoBehaviour {
 
 		Vector3 pos = collider.transform.position;
 
-		pos.x += widthOfBgObject * numBgPanels - widthOfBgObject/2f;
+		pos.x += widthOfBgObject * numBgPanels - widthOfBgObject;
 
 		collider.transform.position = pos;
 	}

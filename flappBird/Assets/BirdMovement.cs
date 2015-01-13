@@ -24,7 +24,7 @@ public class BirdMovement : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		rigidbody2D.AddForce (Vector2.right * forwardSpeed);
+//		rigidbody2D.AddForce (Vector2.right * forwardSpeed);
 
 		if (didFlap) {
 			rigidbody2D.AddForce (Vector2.up * flapSpeed);
@@ -37,8 +37,8 @@ public class BirdMovement : MonoBehaviour {
 		if (rigidbody2D.velocity.y > 0) {
 			transform.rotation = Quaternion.Euler (0, 0, 0);
 		} else {
-			float angle = Mathf.Lerp(0, -90, -rigidbody2D.velocity.y);
-			transform.rotation = Quaternion.Euler(0, 0, angle);
+//			float angle = Mathf.Lerp(0, -90, -rigidbody2D.velocity.y);
+//			transform.rotation = Quaternion.Euler(0, 0, angle);
 		}
 
 
