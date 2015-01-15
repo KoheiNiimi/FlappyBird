@@ -43,8 +43,5 @@ public class BirdMovement : MonoBehaviour {
 
 
 	}
-
-	void OnCollisionenter2D(Collision2D collision) {
-
-	}
+	
 }
