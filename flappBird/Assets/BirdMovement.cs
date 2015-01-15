@@ -10,6 +10,8 @@ public class BirdMovement : MonoBehaviour {
 
 	bool didFlap = false;
 
+	private bool gameover = false;
+
 	Animator animator;
 
 	// Use this for initialization
@@ -55,8 +57,28 @@ public class BirdMovement : MonoBehaviour {
 	}
 	void OnGUI ()
 	{
-		// スコアを上に表示します。
-		GUI.Label(new Rect(0, 0, 200, 50), "score:" + score.ToString(), guiStyle);
+		if (gameover) {
+			GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "gameover\nscore:" + score.ToString(), guiStyle);
+		} else {
+			GUI.Label(new Rect(0, 0, 200, 50), "score:" + score.ToString(), guiStyle);
+		}
 	}
-	
+
+	// 何かにぶつかったら呼ばれる
+	void OnCollisionEnter2D(Collision2D collision) {
+		StartCoroutine(GameOver());
+	}
+
+	IEnumerator GameOver() {
+		// ゲームオーバーのフラグをたてる
+		gameover = true;
+		// マウス連打してたらスコアが表示されずに画面が遷移するのでその対策
+		yield return new WaitForSeconds(1f);
+		// マウスクリックしたらゲームの最初に戻る
+		while (!Input.GetMouseButtonDown(0)) { yield return 0; }
+		Application.LoadLevel("Main");
+	}
+
+
+
 }
