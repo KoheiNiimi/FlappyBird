@@ -43,5 +43,20 @@ public class BirdMovement : MonoBehaviour {
 
 
 	}
+
+	// スコア用
+	private int score = 0;
+	// スコアの表示の設定を行います。
+	public GUIStyle guiStyle;
+	// トリガーに入った時に score を加算します。
+	void OnTriggerEnter2D(Collider2D collider) {
+		score += 1;
+		Destroy(collider); // OnTriggerEnter は1回しか呼ばれない、という認識なんですが何度も呼ばれてウボァーってなったので Destroy 呼んでます。
+	}
+	void OnGUI ()
+	{
+		// スコアを上に表示します。
+		GUI.Label(new Rect(0, 0, 200, 50), "score:" + score.ToString(), guiStyle);
+	}
 	
 }
