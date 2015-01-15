@@ -17,7 +17,7 @@ public class CreateManager : MonoBehaviour {
 	public GameObject ground;
 	
 	private float waitCreatePipeTime = 2.0f;
-	private float waitCreateGroundTime = 10f;
+	private float waitCreateGroundTime = 6f;
 
 	void Awake(){
 		// InvokeRepeating("関数名",初回呼出までの遅延秒数,次回呼出までの遅延秒数)
@@ -33,6 +33,6 @@ public class CreateManager : MonoBehaviour {
 	}
 
 	void CreateGround(){
-		Instantiate (ground, new Vector3 (6.72f, 3.86f, -1f), Quaternion.identity);
+		Instantiate (ground, new Vector3 (3.36f, 3.86f, -1f), Quaternion.identity);
 	}
 }
