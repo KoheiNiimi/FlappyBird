@@ -16,13 +16,18 @@ public class CreateManager : MonoBehaviour {
 	public GameObject pipes;
 	public GameObject ground;
 	
-	private float waitCreatePipeTime = 2.0f;
-	private float waitCreateGroundTime = 6f;
+	private float waitCreatePipeTime = 1.5f;
+	private float waitCreateGroundTime = 3f;
 
 	void Awake(){
 		// InvokeRepeating("関数名",初回呼出までの遅延秒数,次回呼出までの遅延秒数)
-		InvokeRepeating("CreatePipes", waitCreatePipeTime, waitCreatePipeTime);
-		InvokeRepeating("CreateGround", 2.7f, waitCreateGroundTime);
+		if (Application.loadedLevelName == "TitleTop") {
+			InvokeRepeating("CreateGround", 0, waitCreateGroundTime);
+		} else {
+			InvokeRepeating("CreatePipes", waitCreatePipeTime, waitCreatePipeTime);
+			InvokeRepeating("CreateGround", 0, waitCreateGroundTime);		
+		}
+
 	}
 	/// <summary>
 	/// オブジェクトの生成

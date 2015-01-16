@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveBoad : MonoBehaviour {
 
-	public float speed = 1;
+	public float speed = 1.2f;
 
 	// Use this for initialization
 	void Start () {

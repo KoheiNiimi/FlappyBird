@@ -7,6 +7,9 @@ public class BirdMovement : MonoBehaviour {
 	float flapSpeed = 100f;
 	float forwardSpeed = 1f;
 
+	float defaultPlayerPositionX;
+	float defaultPlayerPositionY;
+	float defaultPlayerPositionZ;
 
 	bool didFlap = false;
 
@@ -17,6 +20,9 @@ public class BirdMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = transform.GetComponentInChildren<Animator> ();
+		defaultPlayerPositionX = transform.position.x;
+		defaultPlayerPositionY = transform.position.y;
+		defaultPlayerPositionZ = transform.position.z;
 	}
 
 	void Update() {
@@ -26,21 +32,27 @@ public class BirdMovement : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-//		rigidbody2D.AddForce (Vector2.right * forwardSpeed);
 
-		if (didFlap) {
-			rigidbody2D.AddForce (Vector2.up * flapSpeed);
+		if (Application.loadedLevelName == "TitleTop") {
 
-			animator.SetTrigger("DoFlap");
-
-			didFlap = false;
-		}
-
-		if (rigidbody2D.velocity.y > 0) {
-			transform.rotation = Quaternion.Euler (0, 0, 0);
+			transform.position = new Vector3(transform.position.x,  2.74f + Mathf.Sin(Time.time * 10f) , transform.position.z);
 		} else {
+
+			if (didFlap) {
+				rigidbody2D.AddForce (Vector2.up * flapSpeed);
+
+				animator.SetTrigger("DoFlap");
+
+				didFlap = false;
+			}
+
+			if (rigidbody2D.velocity.y > 0) {
+				transform.rotation = Quaternion.Euler (0, 0, 0);
+			} else {
 //			float angle = Mathf.Lerp(0, -90, -rigidbody2D.velocity.y);
 //			transform.rotation = Quaternion.Euler(0, 0, angle);
+			}
+
 		}
 
 
@@ -55,13 +67,15 @@ public class BirdMovement : MonoBehaviour {
 		score += 1;
 		Destroy(collider); // OnTriggerEnter は1回しか呼ばれない、という認識なんですが何度も呼ばれてウボァーってなったので Destroy 呼んでます。
 	}
-	void OnGUI ()
-	{
-		if (gameover) {
-			GUI.Label(new Rect(0, 0, Screen.width, Screen.height), "gameover\nscore:" + score.ToString(), guiStyle);
-		} else {
-			GUI.Label(new Rect(0, 0, 200, 50), "score:" + score.ToString(), guiStyle);
-		}
+
+	void OnGUI () {
+		if (Application.loadedLevelName != "TitleTop") {
+						if (gameover) {
+								GUI.Label (new Rect (0, 0, Screen.width, Screen.height), "gameover\nscore:" + score.ToString (), guiStyle);
+						} else {
+								GUI.Label (new Rect (0, 0, 200, 50), "score:" + score.ToString (), guiStyle);
+						}
+				}
 	}
 
 	// 何かにぶつかったら呼ばれる
