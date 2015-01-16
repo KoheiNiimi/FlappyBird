@@ -34,8 +34,12 @@ public class BirdMovement : MonoBehaviour {
 	void FixedUpdate () {
 
 		if (Application.loadedLevelName == "TitleTop") {
+			if (transform.position.y < defaultPlayerPositionY + 0.2f) {
+				transform.position = new Vector3(transform.position.x,  transform.position.y + 0.01f, transform.position.z);
+			}else if(transform.position.y > defaultPlayerPositionY - 0.2f){
+				transform.position = new Vector3(transform.position.x,  transform.position.y - 0.01f , transform.position.z);
+			}
 
-			transform.position = new Vector3(transform.position.x,  2.74f + Mathf.Sin(Time.time * 10f) , transform.position.z);
 		} else {
 
 			if (didFlap) {
