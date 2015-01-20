@@ -13,9 +13,15 @@ public class BirdMovement : MonoBehaviour {
 
 	bool didFlap = false;
 
+	bool upBirdFlg = true;
+	bool downBirdFlg = false;
+
 	private bool gameover = false;
 
 	Animator animator;
+
+	public List<Sprite> _numberImage;
+
 
 	// Use this for initialization
 	void Start () {
@@ -33,11 +39,21 @@ public class BirdMovement : MonoBehaviour {
 
 	void FixedUpdate () {
 
-		if (Application.loadedLevelName == "TitleTop") {
-			if (transform.position.y < defaultPlayerPositionY + 0.2f) {
-				transform.position = new Vector3(transform.position.x,  transform.position.y + 0.01f, transform.position.z);
-			}else if(transform.position.y > defaultPlayerPositionY - 0.2f){
-				transform.position = new Vector3(transform.position.x,  transform.position.y - 0.01f , transform.position.z);
+		if (Application.loadedLevelName == "TitleTop" || Application.loadedLevelName == "ReadyTop") {
+			animator.SetTrigger("DoFlap");
+			if (upBirdFlg) {
+				transform.position = new Vector3(transform.position.x,  transform.position.y + 0.005f, transform.position.z);
+			}
+			if (downBirdFlg) {
+				transform.position = new Vector3(transform.position.x,  transform.position.y - 0.005f , transform.position.z);
+			}
+			if (transform.position.y > defaultPlayerPositionY + 0.03f) {
+				downBirdFlg = true;
+				upBirdFlg = false;
+			}
+			if(transform.position.y < defaultPlayerPositionY - 0.03f){
+				upBirdFlg = true;
+				downBirdFlg = false;
 			}
 
 		} else {
@@ -73,7 +89,7 @@ public class BirdMovement : MonoBehaviour {
 	}
 
 	void OnGUI () {
-		if (Application.loadedLevelName != "TitleTop") {
+		if (Application.loadedLevelName != "TitleTop" && Application.loadedLevelName != "ReadyTop") {
 						if (gameover) {
 								GUI.Label (new Rect (0, 0, Screen.width, Screen.height), "gameover\nscore:" + score.ToString (), guiStyle);
 						} else {

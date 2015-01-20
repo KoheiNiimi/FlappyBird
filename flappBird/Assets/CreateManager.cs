@@ -21,7 +21,7 @@ public class CreateManager : MonoBehaviour {
 
 	void Awake(){
 		// InvokeRepeating("関数名",初回呼出までの遅延秒数,次回呼出までの遅延秒数)
-		if (Application.loadedLevelName == "TitleTop") {
+		if (Application.loadedLevelName == "TitleTop" || Application.loadedLevelName == "ReadyTop") {
 			InvokeRepeating("CreateGround", 0, waitCreateGroundTime);
 		} else {
 			InvokeRepeating("CreatePipes", waitCreatePipeTime, waitCreatePipeTime);
