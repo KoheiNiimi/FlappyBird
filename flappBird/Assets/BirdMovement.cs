@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class BirdMovement : MonoBehaviour {
 
@@ -22,6 +24,9 @@ public class BirdMovement : MonoBehaviour {
 
 	public List<Sprite> _numberImage;
 
+	GameObject score0bject;
+	ScoreController scoreCon;
+
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +34,8 @@ public class BirdMovement : MonoBehaviour {
 		defaultPlayerPositionX = transform.position.x;
 		defaultPlayerPositionY = transform.position.y;
 		defaultPlayerPositionZ = transform.position.z;
+		score0bject = GameObject.Find("Score");
+		scoreCon = score0bject.GetComponent<ScoreController>();
 	}
 
 	void Update() {
@@ -85,6 +92,7 @@ public class BirdMovement : MonoBehaviour {
 	// トリガーに入った時に score を加算します。
 	void OnTriggerEnter2D(Collider2D collider) {
 		score += 1;
+		scoreCon.UpdsateScore (score);
 		Destroy(collider); // OnTriggerEnter は1回しか呼ばれない、という認識なんですが何度も呼ばれてウボァーってなったので Destroy 呼んでます。
 	}
 
