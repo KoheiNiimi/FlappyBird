@@ -5,6 +5,8 @@ public class MoveBoad : MonoBehaviour {
 
 	public float speed = 1.2f;
 
+	bool playFlg = true;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -16,8 +18,15 @@ public class MoveBoad : MonoBehaviour {
 	}
 		
 	void FixedUpdate () {
+
+		if (playFlg) {
+
+						rigidbody2D.velocity = -Vector2.right * speed;
+				}
 		
-		rigidbody2D.velocity = -Vector2.right * speed;
-		
+	}
+
+	public void stopMover() {
+		playFlg = false;
 	}
 }

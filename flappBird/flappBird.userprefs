@@ -1,14 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BirdMovement.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ScoreController.cs">
     <Files>
-      <File FileName="Assets/BirdMovement.cs" Line="39" Column="12" />
-      <File FileName="Assets/MoveBoad.cs" Line="1" Column="1" />
-      <File FileName="Assets/DestroyObject.cs" Line="1" Column="1" />
-      <File FileName="Assets/CreateManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/BirdMovement.cs" Line="95" Column="14" />
+      <File FileName="Assets/ScoreController.cs" Line="50" Column="22" />
+      <File FileName="Assets/SceneToMainController.cs" Line="11" Column="4" />
       <File FileName="Assets/SceneController.cs" Line="1" Column="1" />
-      <File FileName="Assets/ScoreController.cs" Line="1" Column="1" />
-      <File FileName="Assets/SceneToMainController.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

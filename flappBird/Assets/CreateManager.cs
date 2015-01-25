@@ -19,14 +19,19 @@ public class CreateManager : MonoBehaviour {
 	private float waitCreatePipeTime = 1.5f;
 	private float waitCreateGroundTime = 3f;
 
+	bool playFlg = true;
+
 	void Awake(){
-		// InvokeRepeating("関数名",初回呼出までの遅延秒数,次回呼出までの遅延秒数)
-		if (Application.loadedLevelName == "TitleTop" || Application.loadedLevelName == "ReadyTop") {
-			InvokeRepeating("CreateGround", 0, waitCreateGroundTime);
-		} else {
-			InvokeRepeating("CreatePipes", waitCreatePipeTime, waitCreatePipeTime);
-			InvokeRepeating("CreateGround", 0, waitCreateGroundTime);		
-		}
+
+ 		if (playFlg) {
+						// InvokeRepeating("関数名",初回呼出までの遅延秒数,次回呼出までの遅延秒数)
+ 						if (Application.loadedLevelName == "TitleTop" || Application.loadedLevelName == "ReadyTop") {
+								InvokeRepeating ("CreateGround", 0, waitCreateGroundTime);
+						} else {
+								InvokeRepeating ("CreatePipes", waitCreatePipeTime, waitCreatePipeTime);
+								InvokeRepeating ("CreateGround", 0, waitCreateGroundTime);		
+						}
+				}
 
 	}
 	/// <summary>
@@ -39,5 +44,9 @@ public class CreateManager : MonoBehaviour {
 
 	void CreateGround(){
 		Instantiate (ground, new Vector3 (3.36f, 3.86f, -1f), Quaternion.identity);
+	}
+
+	public void stopCreate() {
+		playFlg = false;
 	}
 }
