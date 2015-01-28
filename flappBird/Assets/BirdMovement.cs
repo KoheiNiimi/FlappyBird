@@ -28,11 +28,11 @@ public class BirdMovement : MonoBehaviour
 		GameObject score0bject;
 		ScoreController scoreCon;
 
-	SpriteRenderer gameOverRenderer;
+		SpriteRenderer gameOverRenderer;
 
-	GameObject createObject;
-	MoveBoad pipes;
-	MoveBoad bgGround;
+		CreateManager createObject;
+		MoveBoad pipes;
+		MoveBoad bgGround;
 	
 
 
@@ -45,9 +45,9 @@ public class BirdMovement : MonoBehaviour
 				defaultPlayerPositionZ = transform.position.z;
 				score0bject = GameObject.Find ("Score");
 				scoreCon = score0bject.GetComponent<ScoreController> ();
-		gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer>();
-		gameOverRenderer.enabled = false;
-		createObject = GameObject.Find ("CreateManager");
+				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
+				gameOverRenderer.enabled = false;
+				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
 // 		pipes = GameObject.Find ("Pipes").GetComponent<MoveBoad>();
 //		bgGround = GameObject.Find ("BG_GROUND").GetComponent<MoveBoad>();
 		}
@@ -116,8 +116,8 @@ public class BirdMovement : MonoBehaviour
 		void OnCollisionEnter2D (Collision2D collision)
 		{
 				StartCoroutine (GameOver ());
- 		gameOverRenderer.enabled = true;
-		createObject.SendMessage ("stopCreate");
+				gameOverRenderer.enabled = true;
+				createObject.stopPipes ();
 //		pipes.stopMover ();
 //		bgGround.stopMover ();
 
