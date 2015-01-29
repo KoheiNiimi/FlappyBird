@@ -31,8 +31,6 @@ public class BirdMovement : MonoBehaviour
 		SpriteRenderer gameOverRenderer;
 
 		CreateManager createObject;
-		MoveBoad pipes;
-		MoveBoad bgGround;
 	
 
 
@@ -48,8 +46,6 @@ public class BirdMovement : MonoBehaviour
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
 				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
-// 		pipes = GameObject.Find ("Pipes").GetComponent<MoveBoad>();
-//		bgGround = GameObject.Find ("BG_GROUND").GetComponent<MoveBoad>();
 		}
 
 		void Update ()
@@ -118,8 +114,8 @@ public class BirdMovement : MonoBehaviour
 				StartCoroutine (GameOver ());
 				gameOverRenderer.enabled = true;
 				createObject.stopPipes ();
-//		pipes.stopMover ();
-//		bgGround.stopMover ();
+				createObject.stopGrounds ();
+				createObject.stopCreate ();
 
 		}
 

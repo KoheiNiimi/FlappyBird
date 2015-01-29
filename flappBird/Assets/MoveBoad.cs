@@ -7,14 +7,12 @@ public class MoveBoad : MonoBehaviour
 		public float speed = 1.2f;
 
 		bool playFlg = true;
-
-		// Use this for initialization
+	
 		void Start ()
 		{
 	
 		}
-	
-		// Update is called once per frame
+
 		void Update ()
 		{
 	
