@@ -29,9 +29,15 @@ public class BirdMovement : MonoBehaviour
 		ScoreController scoreCon;
 
 		SpriteRenderer gameOverRenderer;
+		SpriteRenderer gameOverToStartButton;
 
 		CreateManager createObject;
+
+		GameObject result;
+
+		float resultUpParam = 0.01f;
 	
+
 
 
 		// Use this for initialization
@@ -45,7 +51,10 @@ public class BirdMovement : MonoBehaviour
 				scoreCon = score0bject.GetComponent<ScoreController> ();
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
+				gameOverToStartButton = GameObject.Find ("buttonStart").GetComponent<SpriteRenderer> ();
+				gameOverToStartButton.enabled = false;
 				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
+				result = GameObject.Find ("Result");
 		}
 
 		void Update ()
@@ -116,6 +125,8 @@ public class BirdMovement : MonoBehaviour
 				createObject.stopPipes ();
 				createObject.stopGrounds ();
 				createObject.stopCreate ();
+				StartCoroutine ("appearStartButton");
+				result.transform.position = new Vector3 (result.transform.position.x, 2.25f, result.transform.position.z);
 
 		}
 
@@ -130,8 +141,26 @@ public class BirdMovement : MonoBehaviour
 				while (!Input.GetMouseButtonDown(0)) {
 						yield return 0;
 				}
-				Application.LoadLevel ("Main");
 		}
+		
+		IEnumerator appearStartButton ()
+		{
+				yield return new WaitForSeconds (1.5f);
+				gameOverToStartButton.enabled = true;
+
+		}
+
+	
+//		void moveResult ()
+//		{
+//				bool moveFlg = true;
+//				while (moveFlg) {
+//						if (result.transform.position.y == 2.25f) {
+//								moveFlg = false;
+//						}
+//				}
+//				result.transform.position.y += resultUpParam;
+//		}
 
 
 

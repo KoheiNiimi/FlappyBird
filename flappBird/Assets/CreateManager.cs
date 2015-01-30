@@ -6,6 +6,8 @@ public class CreateManager : MonoBehaviour
 {
 		public GameObject pipes;
 		public GameObject ground;
+
+		private GameObject defaultGround;			
 	
 		private float waitCreatePipeTime = 0.8f;
 		private float waitCreateGroundTime = 3.0f;
@@ -14,9 +16,11 @@ public class CreateManager : MonoBehaviour
 		public List<MoveBoad> backgroundList;
 		public MoveBoad bg;
 
+
 		// Use this for initialization
 		void Start ()
 		{
+				defaultGround = GameObject.Find ("BG_GROUND");
 				if (Application.loadedLevelName == "TitleTop" || Application.loadedLevelName == "ReadyTop") {
 						StartCoroutine ("CreateGround");
 				} else {
@@ -76,6 +80,10 @@ public class CreateManager : MonoBehaviour
 		}
 		public void stopGrounds ()
 		{
+				if (defaultGround != null) {
+						MoveBoad mb = defaultGround.GetComponent<MoveBoad> ();
+						mb.stopMover ();
+				}
 				foreach (MoveBoad mb in backgroundList) {
 						mb.stopMover ();
 				}
