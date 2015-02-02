@@ -66,11 +66,11 @@ public class BirdMovement : MonoBehaviour
 				}
 
 				if (moveResultFlg) {
-					if (result.transform.position.y >= 2.25f) {
-						moveResultFlg = false;
-					} else {
-						result.transform.position = new Vector3 (result.transform.position.x, result.transform.position.y + resultUpParam, result.transform.position.z);
-					}	
+						if (result.transform.position.y >= 2.25f) {
+								moveResultFlg = false;
+						} else {
+								result.transform.position = new Vector3 (result.transform.position.x, result.transform.position.y + resultUpParam, result.transform.position.z);
+						}	
 				}
 		}
 
@@ -96,21 +96,21 @@ public class BirdMovement : MonoBehaviour
 
 				} else {
 
-					if (didFlap) {
-						if(transform.position.y < 5.37f) {
-							rigidbody2D.velocity = Vector3.up * flapSpeed;
-						}
+						if (didFlap) {
+								if (transform.position.y < 5.37f) {
+										rigidbody2D.velocity = Vector3.up * flapSpeed;
+								}
 								
-							animator.SetTrigger ("DoFlap");
-							didFlap = false;
-					}
+								animator.SetTrigger ("DoFlap");
+								didFlap = false;
+						}
 					
 
 						if (rigidbody2D.velocity.y > 0) {
 								transform.rotation = Quaternion.Euler (0, 0, 0);
 						} else {
-			float angle = Mathf.Lerp(0, -90, -rigidbody2D.velocity.y);
-			transform.rotation = Quaternion.Euler(0, 0, angle);
+								float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y);
+								transform.rotation = Quaternion.Euler (0, 0, angle);
 						}
 
 				}
@@ -138,7 +138,7 @@ public class BirdMovement : MonoBehaviour
 				createObject.stopGrounds ();
 				createObject.stopCreate ();
 				StartCoroutine ("appearStartButton");
-		moveResultFlg = true;
+				moveResultFlg = true;
 		}
 
 
