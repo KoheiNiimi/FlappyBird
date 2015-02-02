@@ -7,7 +7,7 @@ public class BirdMovement : MonoBehaviour
 {
 
 		Vector3 velocity = Vector3.zero;
-		float flapSpeed = 100f;
+		float flapSpeed = 2f;
 		float forwardSpeed = 1f;
 
 		float defaultPlayerPositionX;
@@ -35,7 +35,9 @@ public class BirdMovement : MonoBehaviour
 
 		GameObject result;
 
-		float resultUpParam = 0.01f;
+		float resultUpParam = 0.05f;
+
+		bool moveResultFlg = false;
 	
 
 
@@ -62,6 +64,14 @@ public class BirdMovement : MonoBehaviour
 				if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
 						didFlap = true;
 				}
+
+				if (moveResultFlg) {
+					if (result.transform.position.y >= 2.25f) {
+						moveResultFlg = false;
+					} else {
+						result.transform.position = new Vector3 (result.transform.position.x, result.transform.position.y + resultUpParam, result.transform.position.z);
+					}	
+				}
 		}
 
 		void FixedUpdate ()
@@ -86,19 +96,21 @@ public class BirdMovement : MonoBehaviour
 
 				} else {
 
-						if (didFlap) {
-								rigidbody2D.AddForce (Vector2.up * flapSpeed);
-
-								animator.SetTrigger ("DoFlap");
-
-								didFlap = false;
+					if (didFlap) {
+						if(transform.position.y < 5.37f) {
+							rigidbody2D.velocity = Vector3.up * flapSpeed;
 						}
+								
+							animator.SetTrigger ("DoFlap");
+							didFlap = false;
+					}
+					
 
 						if (rigidbody2D.velocity.y > 0) {
 								transform.rotation = Quaternion.Euler (0, 0, 0);
 						} else {
-//			float angle = Mathf.Lerp(0, -90, -rigidbody2D.velocity.y);
-//			transform.rotation = Quaternion.Euler(0, 0, angle);
+			float angle = Mathf.Lerp(0, -90, -rigidbody2D.velocity.y);
+			transform.rotation = Quaternion.Euler(0, 0, angle);
 						}
 
 				}
@@ -126,8 +138,7 @@ public class BirdMovement : MonoBehaviour
 				createObject.stopGrounds ();
 				createObject.stopCreate ();
 				StartCoroutine ("appearStartButton");
-				result.transform.position = new Vector3 (result.transform.position.x, 2.25f, result.transform.position.z);
-
+		moveResultFlg = true;
 		}
 
 
@@ -158,8 +169,10 @@ public class BirdMovement : MonoBehaviour
 //						if (result.transform.position.y == 2.25f) {
 //								moveFlg = false;
 //						}
+//			result.transform.position = new Vector3 (result.transform.position.x, result.transform.position.y + resultUpParam, result.transform.position.z);
 //				}
-//				result.transform.position.y += resultUpParam;
+//
+//
 //		}
 
 
