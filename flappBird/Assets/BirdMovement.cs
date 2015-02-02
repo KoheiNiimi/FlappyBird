@@ -53,12 +53,17 @@ public class BirdMovement : MonoBehaviour
 				gameOverToStartButton.enabled = false;
 				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
 				result = GameObject.Find ("Result");
+		animator.SetTrigger ("DoFlap");
+		rigidbody2D.velocity = Vector3.up * flapSpeed;
+		transform.rotation = Quaternion.Euler (0, 0, 30);
 		}
 
 		void Update ()
 		{
-				if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
-						didFlap = true;
+		if (!gameover) {
+						if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
+								didFlap = true;
+						}
 				}
 
 				if (moveResultFlg) {
@@ -92,23 +97,34 @@ public class BirdMovement : MonoBehaviour
 
 				} else {
 
-						if (didFlap) {
-								if (transform.position.y < 5.37f) {
-										rigidbody2D.velocity = Vector3.up * flapSpeed;
-								}
+						if (!gameover) {
+								if (didFlap) {
+										if (transform.position.y < 5.37f) {
+												rigidbody2D.velocity = Vector3.up * flapSpeed;
+										}
 								
-								animator.SetTrigger ("DoFlap");
-								didFlap = false;
-						}
+										animator.SetTrigger ("DoFlap");
+										didFlap = false;
+								}
 					
 
-						if (rigidbody2D.velocity.y > 0) {
-								transform.rotation = Quaternion.Euler (0, 0, 30);
-						} else {
-								float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
-								transform.rotation = Quaternion.Euler (0, 0, angle);
-						}
+								if (rigidbody2D.velocity.y > 0) {
+										transform.rotation = Quaternion.Euler (0, 0, 30);
+								} else {
+										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
+										transform.rotation = Quaternion.Euler (0, 0, angle);
+								}
 
+						} else {
+
+				if(rigidbody2D.velocity.y < -2.842f) { 
+				float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y /2);
+				transform.rotation = Quaternion.Euler (0, 0, angle);
+				} else {
+					float angle = Mathf.Lerp (0, -90, 2.842f /2);
+					transform.rotation = Quaternion.Euler (0, 0, angle);
+				}
+			}    
 				}
 
 
@@ -121,7 +137,7 @@ public class BirdMovement : MonoBehaviour
 
 		void OnTriggerEnter2D (Collider2D collider)
 		{
-				score += 1;
+				score += 5;
 				scoreCon.UpdsateScore (score);
 		}
 
@@ -133,6 +149,7 @@ public class BirdMovement : MonoBehaviour
 				createObject.stopPipes ();
 				createObject.stopGrounds ();
 				createObject.stopCreate ();
+		createObject.disablePipesTrigger ();
 				StartCoroutine ("appearStartButton");         
 				moveResultFlg = true;
 				scoreCon.StartCoroutine ("viewDisableScore");

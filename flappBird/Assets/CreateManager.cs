@@ -16,6 +16,8 @@ public class CreateManager : MonoBehaviour
 		public List<MoveBoad> backgroundList;
 		public MoveBoad bg;
 
+	private GameObject[] gameObjectList;
+
 
 		// Use this for initialization
 		void Start ()
@@ -77,6 +79,13 @@ public class CreateManager : MonoBehaviour
 				foreach (MoveBoad mb in boadList) {
 						mb.stopMover ();
 				}
+		}
+		public void disablePipesTrigger() {
+		gameObjectList = GameObject.FindGameObjectsWithTag("pipe");
+		foreach (GameObject go in gameObjectList) {
+			go.collider2D.isTrigger = true;
+				}
+
 		}
 		public void stopGrounds ()
 		{
