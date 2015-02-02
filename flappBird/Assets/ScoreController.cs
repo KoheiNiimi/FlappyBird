@@ -9,7 +9,6 @@ public class ScoreController : MonoBehaviour
 
 		public List<SpriteRenderer> _list;
 
-
 		void Awake ()
 		{
 				_list = new List<SpriteRenderer> ();

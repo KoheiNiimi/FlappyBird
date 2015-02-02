@@ -22,10 +22,10 @@ public class MoveBoad : MonoBehaviour
 		{
 
 				if (playFlg) {
-						rigidbody2D.velocity = -Vector2.right * speed;
-				} else {
-						rigidbody2D.velocity = Vector2.zero;
-				}
+						Vector3 vec = transform.localPosition;
+						vec.x -= 1f * Time.deltaTime;
+						transform.localPosition = vec;
+				} 
 		}
 
 		public void stopMover ()

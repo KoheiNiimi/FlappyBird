@@ -38,8 +38,6 @@ public class BirdMovement : MonoBehaviour
 		bool moveResultFlg = false;
 	
 
-
-
 		// Use this for initialization
 		void Start ()
 		{
@@ -115,12 +113,12 @@ public class BirdMovement : MonoBehaviour
 
 
 		}
-
-		// スコア用
+	
 		private int score = 0;
-		// スコアの表示の設定を行います。
+
 		public GUIStyle guiStyle;
-		// トリガーに入った時に score を加算します。
+
+
 		void OnTriggerEnter2D (Collider2D collider)
 		{
 				score += 1;
@@ -135,9 +133,10 @@ public class BirdMovement : MonoBehaviour
 				createObject.stopPipes ();
 				createObject.stopGrounds ();
 				createObject.stopCreate ();
-				StartCoroutine ("appearStartButton");
+				StartCoroutine ("appearStartButton");         
 				moveResultFlg = true;
 				scoreCon.StartCoroutine ("viewDisableScore");
+
 		}
 
 
