@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 public class BirdMovement : MonoBehaviour
 {
-
-		Vector3 velocity = Vector3.zero;
-		float flapSpeed = 2f;
-		float forwardSpeed = 1f;
+	
+		private float flapSpeed = 2f;
 
 		float defaultPlayerPositionX;
 		float defaultPlayerPositionY;
@@ -107,9 +105,9 @@ public class BirdMovement : MonoBehaviour
 					
 
 						if (rigidbody2D.velocity.y > 0) {
-								transform.rotation = Quaternion.Euler (0, 0, 0);
+								transform.rotation = Quaternion.Euler (0, 0, 30);
 						} else {
-								float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y);
+								float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
 								transform.rotation = Quaternion.Euler (0, 0, angle);
 						}
 
@@ -139,6 +137,7 @@ public class BirdMovement : MonoBehaviour
 				createObject.stopCreate ();
 				StartCoroutine ("appearStartButton");
 				moveResultFlg = true;
+				scoreCon.StartCoroutine ("viewDisableScore");
 		}
 
 
@@ -160,21 +159,5 @@ public class BirdMovement : MonoBehaviour
 				gameOverToStartButton.enabled = true;
 
 		}
-
-	
-//		void moveResult ()
-//		{
-//				bool moveFlg = true;
-//				while (moveFlg) {
-//						if (result.transform.position.y == 2.25f) {
-//								moveFlg = false;
-//						}
-//			result.transform.position = new Vector3 (result.transform.position.x, result.transform.position.y + resultUpParam, result.transform.position.z);
-//				}
-//
-//
-//		}
-
-
 
 }
