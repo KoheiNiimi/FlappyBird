@@ -24,7 +24,9 @@ public class BirdMovement : MonoBehaviour
 		public List<Sprite> _numberImage;
 
 		GameObject score0bject;
+	GameObject scoreResultBbject;
 		ScoreController scoreCon;
+	ResultScoreController resultScoreCon;
 
 		SpriteRenderer gameOverRenderer;
 		SpriteRenderer gameOverToStartButton;
@@ -49,6 +51,8 @@ public class BirdMovement : MonoBehaviour
 				defaultPlayerPositionZ = transform.position.z;
 				score0bject = GameObject.Find ("Score");
 				scoreCon = score0bject.GetComponent<ScoreController> ();
+		scoreResultBbject = GameObject.Find ("resultScore");
+		resultScoreCon = scoreResultBbject.GetComponent<ResultScoreController> ();
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
 				gameOverToStartButton = GameObject.Find ("buttonStart").GetComponent<SpriteRenderer> ();
@@ -74,8 +78,7 @@ public class BirdMovement : MonoBehaviour
 						if (result.transform.position.y >= 2.25f) {
 								moveResultFlg = false;
 								
-								scoreCon.ViewResultScore ();
-								
+				resultScoreCon.StartCoroutine("countUp",score);
 						} else {
 								if (startMoveResult) {
 										Vector3 vec = result.transform.position;
@@ -158,8 +161,13 @@ public class BirdMovement : MonoBehaviour
 
 		void OnTriggerEnter2D (Collider2D collider)
 		{
-				score += 5;
-				scoreCon.UpdateScore (score);
+		if (!gameover) {
+						score += 1;
+			audioSource.Play();
+						scoreCon.UpdateScore (score);
+						
+
+				}
 		}
 
 		// 何かにぶつかったら呼ばれる
@@ -170,10 +178,10 @@ public class BirdMovement : MonoBehaviour
 				createObject.stopPipes ();
 				createObject.stopGrounds ();
 				createObject.stopCreate ();
-				createObject.disablePipesTrigger ();
 				StartCoroutine ("appearStartButton");         
 				moveResultFlg = true;
 				scoreCon.StartCoroutine ("viewDisableScore");
+						createObject.disablePipesTrigger ();
 
 		}
 

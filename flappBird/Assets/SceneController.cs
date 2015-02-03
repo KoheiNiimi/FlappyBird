@@ -12,7 +12,7 @@ public class SceneController : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-			Application.LoadLevel("ReadyTop"); //　シーン遷移
+			Application.LoadLevel("ReadyTop"); 
 		}
 	
 	}

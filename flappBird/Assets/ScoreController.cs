@@ -6,12 +6,11 @@ public class ScoreController : MonoBehaviour
 {
 
 		public List<Sprite> _numberImage;
-		
-		public List<Sprite> _resultNumberImage;
 
 		public List<SpriteRenderer> _list;
 
-		private GameObject result;
+	private int addDigitCount;
+	
 
 		void Awake ()
 		{
@@ -22,7 +21,6 @@ public class ScoreController : MonoBehaviour
 		void Start ()
 		{
 				AddDigit (0);
-				result = GameObject.Find ("number0Default");
 		}
 	
 		// Update is called once per frame
@@ -50,17 +48,28 @@ public class ScoreController : MonoBehaviour
 
 		public void AddDigit (int a)
 		{
+		addDigitCount += 1;
 				GameObject go = new GameObject ();
 
-				go.transform.parent = this.transform;
+		go.transform.parent = this.transform;
 
-				go.transform.localPosition = new Vector3 (-0.24f, 0.3f, -2f);
+			if(addDigitCount == 1) {
+			go.transform.localPosition = new Vector3 (-0.24f, 0.3f, -2f);
 
+		}else if(addDigitCount == 2) {
+			go.transform.localPosition = new Vector3 (-0.45f, 0.3f, -2f);
+		}else {
+
+		}
+				
 				SpriteRenderer sr = go.AddComponent<SpriteRenderer> ();
 
 				sr.sprite = _numberImage [a];
 				_list.Add (sr);	
 		}
+
+		
+	
 
 		IEnumerator viewDisableScore ()
 		{
@@ -70,9 +79,10 @@ public class ScoreController : MonoBehaviour
 				}
 		}
 
-		public void ViewResultScore ()
-		{
-				SpriteRenderer sr = result.GetComponent<SpriteRenderer> ();
-				sr.sprite = _resultNumberImage [1];
-		}
+//		public void ViewResultScore (int score)
+//		{	
+//		int scoreSize = score.ToString ().Length;
+//				SpriteRenderer sr = result.GetComponent<SpriteRenderer> ();
+//				sr.sprite = _resultNumberImage [score];
+//		}
 }
