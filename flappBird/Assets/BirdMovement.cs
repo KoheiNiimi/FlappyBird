@@ -36,6 +36,8 @@ public class BirdMovement : MonoBehaviour
 		float resultUpParam = 0.05f;
 
 		bool moveResultFlg = false;
+
+		bool startMoveResult = false;
 	
 
 		// Use this for initialization
@@ -53,14 +55,16 @@ public class BirdMovement : MonoBehaviour
 				gameOverToStartButton.enabled = false;
 				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
 				result = GameObject.Find ("Result");
-		animator.SetTrigger ("DoFlap");
-		rigidbody2D.velocity = Vector3.up * flapSpeed;
-		transform.rotation = Quaternion.Euler (0, 0, 30);
+				animator.SetTrigger ("DoFlap");
+				rigidbody2D.velocity = Vector3.up * flapSpeed;
+				transform.rotation = Quaternion.Euler (0, 0, 30);
 		}
 
 		void Update ()
 		{
-		if (!gameover) {
+
+				rigidbody2D.velocity = new Vector2 (0f, rigidbody2D.velocity.y);
+				if (!gameover) {
 						if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
 								didFlap = true;
 						}
@@ -69,10 +73,27 @@ public class BirdMovement : MonoBehaviour
 				if (moveResultFlg) {
 						if (result.transform.position.y >= 2.25f) {
 								moveResultFlg = false;
+								
+								scoreCon.ViewResultScore ();
+								
 						} else {
-								result.transform.position = new Vector3 (result.transform.position.x, result.transform.position.y + resultUpParam, result.transform.position.z);
+								if (startMoveResult) {
+										Vector3 vec = result.transform.position;
+										vec.y += 8f * Time.deltaTime;
+										result.transform.position = vec;
+								} else {
+										StartCoroutine ("moveResult");
+								}
+								
 						}	
 				}
+		}
+		
+		IEnumerator moveResult ()
+		{
+				yield return new WaitForSeconds (1f);
+				startMoveResult = true;
+
 		}
 
 		void FixedUpdate ()
@@ -117,14 +138,14 @@ public class BirdMovement : MonoBehaviour
 
 						} else {
 
-				if(rigidbody2D.velocity.y < -2.842f) { 
-				float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y /2);
-				transform.rotation = Quaternion.Euler (0, 0, angle);
-				} else {
-					float angle = Mathf.Lerp (0, -90, 2.842f /2);
-					transform.rotation = Quaternion.Euler (0, 0, angle);
-				}
-			}    
+								if (rigidbody2D.velocity.y < -2.842f) { 
+										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
+										transform.rotation = Quaternion.Euler (0, 0, angle);
+								} else {
+										float angle = Mathf.Lerp (0, -90, 2.842f / 2);
+										transform.rotation = Quaternion.Euler (0, 0, angle);
+								}
+						}    
 				}
 
 
@@ -138,18 +159,18 @@ public class BirdMovement : MonoBehaviour
 		void OnTriggerEnter2D (Collider2D collider)
 		{
 				score += 5;
-				scoreCon.UpdsateScore (score);
+				scoreCon.UpdateScore (score);
 		}
 
 		// 何かにぶつかったら呼ばれる
 		void OnCollisionEnter2D (Collision2D collision)
 		{
 				StartCoroutine (GameOver ());
-				gameOverRenderer.enabled = true;
+				StartCoroutine ("appearGameOverButton"); 
 				createObject.stopPipes ();
 				createObject.stopGrounds ();
 				createObject.stopCreate ();
-		createObject.disablePipesTrigger ();
+				createObject.disablePipesTrigger ();
 				StartCoroutine ("appearStartButton");         
 				moveResultFlg = true;
 				scoreCon.StartCoroutine ("viewDisableScore");
@@ -174,6 +195,12 @@ public class BirdMovement : MonoBehaviour
 				yield return new WaitForSeconds (1.5f);
 				gameOverToStartButton.enabled = true;
 
+		}
+
+		IEnumerator appearGameOverButton ()
+		{
+				yield return new WaitForSeconds (0.5f);
+				gameOverRenderer.enabled = true;
 		}
 
 }

@@ -6,8 +6,12 @@ public class ScoreController : MonoBehaviour
 {
 
 		public List<Sprite> _numberImage;
+		
+		public List<Sprite> _resultNumberImage;
 
 		public List<SpriteRenderer> _list;
+
+		private GameObject result;
 
 		void Awake ()
 		{
@@ -17,8 +21,8 @@ public class ScoreController : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-	
 				AddDigit (0);
+				result = GameObject.Find ("number0Default");
 		}
 	
 		// Update is called once per frame
@@ -27,7 +31,7 @@ public class ScoreController : MonoBehaviour
 	
 		}
 
-		public void UpdsateScore (int score)
+		public void UpdateScore (int score)
 		{
 				int updateDigitIndex = 0;
 				while (score > 0) {
@@ -60,9 +64,15 @@ public class ScoreController : MonoBehaviour
 
 		IEnumerator viewDisableScore ()
 		{
-				yield return new WaitForSeconds (1.5f);
+				yield return new WaitForSeconds (0.5f);
 				foreach (SpriteRenderer sp in _list) {
 						sp.enabled = false;
 				}
+		}
+
+		public void ViewResultScore ()
+		{
+				SpriteRenderer sr = result.GetComponent<SpriteRenderer> ();
+				sr.sprite = _resultNumberImage [1];
 		}
 }
