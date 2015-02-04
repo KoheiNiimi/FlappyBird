@@ -10,13 +10,15 @@ public class CreateManager : MonoBehaviour
 		private GameObject defaultGround;			
 	
 		private float waitCreatePipeTime = 0.8f;
-		private float waitCreateGroundTime = 3.0f;
+		private float waitCreateGroundTime = 2.2f;
 	
 		public List<MoveBoad> boadList;
 		public List<MoveBoad> backgroundList;
 		public MoveBoad bg;
 
-	private GameObject[] gameObjectList;
+		private GameObject[] gameObjectList;
+
+		private bool firstWaitFlg = true;
 
 
 		// Use this for initialization
@@ -44,11 +46,14 @@ public class CreateManager : MonoBehaviour
 		{
 
 				while (true) {
-
+						if (firstWaitFlg) {
+								yield return new WaitForSeconds (waitCreateGroundTime);
+								firstWaitFlg = false;
+						}
 						GameObject go = Instantiate (ground, new Vector3 (3.36f, 3.86f, -1f), Quaternion.identity)  as GameObject;
 						MoveBoad mb = go.GetComponent<MoveBoad> ();
 						backgroundList.Add (mb);
-						yield return new WaitForSeconds (waitCreateGroundTime);
+						yield return new WaitForSeconds (2.87f);
 				
 				}
 				
@@ -80,10 +85,11 @@ public class CreateManager : MonoBehaviour
 						mb.stopMover ();
 				}
 		}
-		public void disablePipesTrigger() {
-		gameObjectList = GameObject.FindGameObjectsWithTag("pipe");
-		foreach (GameObject go in gameObjectList) {
-			go.collider2D.isTrigger = true;
+		public void disablePipesTrigger ()
+		{
+				gameObjectList = GameObject.FindGameObjectsWithTag ("pipe");
+				foreach (GameObject go in gameObjectList) {
+						go.collider2D.isTrigger = true;
 				}
 
 		}

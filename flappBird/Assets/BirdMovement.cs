@@ -24,9 +24,9 @@ public class BirdMovement : MonoBehaviour
 		public List<Sprite> _numberImage;
 
 		GameObject score0bject;
-	GameObject scoreResultBbject;
+		GameObject scoreResultBbject;
 		ScoreController scoreCon;
-	ResultScoreController resultScoreCon;
+		ResultScoreController resultScoreCon;
 
 		SpriteRenderer gameOverRenderer;
 		SpriteRenderer gameOverToStartButton;
@@ -40,7 +40,16 @@ public class BirdMovement : MonoBehaviour
 		bool moveResultFlg = false;
 
 		bool startMoveResult = false;
-	
+
+		private AudioSource scoreGetSound;
+		private AudioSource wingSound;
+		private AudioSource hitSound;
+		private AudioSource dieSound;
+		private AudioSource swooshingSound;
+
+		private bool playHitSoundFlg = true;
+		private bool playDieSoundFlg = true;
+		private bool playGameOverSwooshingSoundFlg = true;
 
 		// Use this for initialization
 		void Start ()
@@ -51,8 +60,8 @@ public class BirdMovement : MonoBehaviour
 				defaultPlayerPositionZ = transform.position.z;
 				score0bject = GameObject.Find ("Score");
 				scoreCon = score0bject.GetComponent<ScoreController> ();
-		scoreResultBbject = GameObject.Find ("resultScore");
-		resultScoreCon = scoreResultBbject.GetComponent<ResultScoreController> ();
+				scoreResultBbject = GameObject.Find ("resultScore");
+				resultScoreCon = scoreResultBbject.GetComponent<ResultScoreController> ();
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
 				gameOverToStartButton = GameObject.Find ("buttonStart").GetComponent<SpriteRenderer> ();
@@ -62,6 +71,12 @@ public class BirdMovement : MonoBehaviour
 				animator.SetTrigger ("DoFlap");
 				rigidbody2D.velocity = Vector3.up * flapSpeed;
 				transform.rotation = Quaternion.Euler (0, 0, 30);
+				AudioSource[] audioSources = GetComponents<AudioSource> ();
+				scoreGetSound = audioSources [0];
+				wingSound = audioSources [1];
+				hitSound = audioSources [2];
+				dieSound = audioSources [3];
+				swooshingSound = audioSources [4];
 		}
 
 		void Update ()
@@ -71,14 +86,15 @@ public class BirdMovement : MonoBehaviour
 				if (!gameover) {
 						if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
 								didFlap = true;
+								wingSound.Play ();
 						}
 				}
 
 				if (moveResultFlg) {
 						if (result.transform.position.y >= 2.25f) {
 								moveResultFlg = false;
-								
-				resultScoreCon.StartCoroutine("countUp",score);
+								swooshingSound.Play ();
+								resultScoreCon.StartCoroutine ("countUp", score);
 						} else {
 								if (startMoveResult) {
 										Vector3 vec = result.transform.position;
@@ -145,6 +161,10 @@ public class BirdMovement : MonoBehaviour
 										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
 										transform.rotation = Quaternion.Euler (0, 0, angle);
 								} else {
+										if (playDieSoundFlg) {
+												dieSound.Play ();
+												playDieSoundFlg = false;
+										}
 										float angle = Mathf.Lerp (0, -90, 2.842f / 2);
 										transform.rotation = Quaternion.Euler (0, 0, angle);
 								}
@@ -161,12 +181,10 @@ public class BirdMovement : MonoBehaviour
 
 		void OnTriggerEnter2D (Collider2D collider)
 		{
-		if (!gameover) {
+				if (!gameover) {
 						score += 1;
-			audioSource.Play();
 						scoreCon.UpdateScore (score);
-						
-
+						scoreGetSound.Play ();
 				}
 		}
 
@@ -174,6 +192,10 @@ public class BirdMovement : MonoBehaviour
 		void OnCollisionEnter2D (Collision2D collision)
 		{
 				StartCoroutine (GameOver ());
+				if (playHitSoundFlg) {
+						hitSound.Play ();
+						playHitSoundFlg = false;
+				}
 				StartCoroutine ("appearGameOverButton"); 
 				createObject.stopPipes ();
 				createObject.stopGrounds ();
@@ -181,7 +203,7 @@ public class BirdMovement : MonoBehaviour
 				StartCoroutine ("appearStartButton");         
 				moveResultFlg = true;
 				scoreCon.StartCoroutine ("viewDisableScore");
-						createObject.disablePipesTrigger ();
+				createObject.disablePipesTrigger ();
 
 		}
 
@@ -201,6 +223,7 @@ public class BirdMovement : MonoBehaviour
 		IEnumerator appearStartButton ()
 		{
 				yield return new WaitForSeconds (1.5f);
+				
 				gameOverToStartButton.enabled = true;
 
 		}
@@ -208,6 +231,11 @@ public class BirdMovement : MonoBehaviour
 		IEnumerator appearGameOverButton ()
 		{
 				yield return new WaitForSeconds (0.5f);
+				if (playGameOverSwooshingSoundFlg) {
+						swooshingSound.Play ();
+						playGameOverSwooshingSoundFlg = false;
+				}
+				
 				gameOverRenderer.enabled = true;
 		}
 
