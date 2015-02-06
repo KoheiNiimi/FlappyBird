@@ -30,7 +30,8 @@ public class BirdMovement : MonoBehaviour
 
 		SpriteRenderer gameOverRenderer;
 		SpriteRenderer gameOverToStartButton;
-	GameObject startButton;
+
+		GameObject startButton;
 
 		CreateManager createObject;
 
@@ -65,9 +66,9 @@ public class BirdMovement : MonoBehaviour
 				resultScoreCon = scoreResultBbject.GetComponent<ResultScoreController> ();
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
-		startButton = GameObject.Find ("buttonStart");
-		gameOverToStartButton = startButton.GetComponent<SpriteRenderer> ();
-		startButton.collider.enabled = false;
+				startButton = GameObject.Find ("buttonStart");
+				gameOverToStartButton = startButton.GetComponent<SpriteRenderer> ();
+				startButton.collider.enabled = false;
 				gameOverToStartButton.enabled = false;
 				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
 				result = GameObject.Find ("Result");
@@ -226,7 +227,9 @@ public class BirdMovement : MonoBehaviour
 		IEnumerator appearStartButton ()
 		{
 				yield return new WaitForSeconds (1.5f);
-		startButton.collider.enabled = true;
+
+				startButton.collider.enabled = true;
+				
 				gameOverToStartButton.enabled = true;
 
 		}
