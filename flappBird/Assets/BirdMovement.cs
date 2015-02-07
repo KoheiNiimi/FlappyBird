@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -72,8 +72,6 @@ public class BirdMovement : MonoBehaviour
 				gameOverToStartButton.enabled = false;
 				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
 				result = GameObject.Find ("Result");
-				animator.SetTrigger ("DoFlap");
-				rigidbody2D.velocity = Vector3.up * flapSpeed;
 				transform.rotation = Quaternion.Euler (0, 0, 30);
 				AudioSource[] audioSources = GetComponents<AudioSource> ();
 				scoreGetSound = audioSources [0];
@@ -143,11 +141,13 @@ public class BirdMovement : MonoBehaviour
 
 						if (!gameover) {
 								if (didFlap) {
+					animator.SetTrigger ("DoFlap");
+
 										if (transform.position.y < 5.37f) {
 												rigidbody2D.velocity = Vector3.up * flapSpeed;
 										}
 								
-										animator.SetTrigger ("DoFlap");
+									
 										didFlap = false;
 								}
 					
@@ -157,6 +157,7 @@ public class BirdMovement : MonoBehaviour
 								} else {
 										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
 										transform.rotation = Quaternion.Euler (0, 0, angle);
+//					rigidbody2D.AddForce(-5f * rigidbody2D.velocity);
 								}
 
 						} else {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -26,6 +26,9 @@ public class BirdSelectController : MonoBehaviour
 						PlayerPrefs.DeleteKey (BIRD_COLOR_KEY);
 						animator = GetComponentInChildren<Animator> ();
 						animator.runtimeAnimatorController = birdFlappyingList [index];
+							animator.SetTrigger ("DoFlap");
+							rigidbody2D.velocity = Vector3.up * 2f;
+						
 				}
 				
 		}
