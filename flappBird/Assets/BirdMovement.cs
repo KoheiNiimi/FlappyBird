@@ -196,8 +196,8 @@ public class BirdMovement : MonoBehaviour
 		rigidbody2D.velocity = Vector3.zero;
 		rigidbody2D.velocity = Vector3.up * flapSpeed;
 		animator.SetTrigger ("DoFlap");
-//		rigidbody.AddForce (0, 10.0f, 0, ForceMode.VelocityChange);
 		didFlap = false;
+
 	}
 	
 		private int score = 0;
@@ -230,6 +230,7 @@ public class BirdMovement : MonoBehaviour
 				moveResultFlg = true;
 				scoreCon.StartCoroutine ("viewDisableScore");
 				createObject.disablePipesTrigger ();
+		animator.ResetTrigger ("DoFlap");
 
 		}
 
