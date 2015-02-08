@@ -27,7 +27,7 @@ public class BirdSelectController : MonoBehaviour
 						animator = GetComponentInChildren<Animator> ();
 						animator.runtimeAnimatorController = birdFlappyingList [index];
 							animator.SetTrigger ("DoFlap");
-							rigidbody2D.velocity = Vector3.up * 2f;
+							rigidbody2D.velocity = Vector3.up * 3f;
 						
 				}
 				

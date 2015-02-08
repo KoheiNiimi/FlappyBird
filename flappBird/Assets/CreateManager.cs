@@ -29,7 +29,7 @@ public class CreateManager : MonoBehaviour
 						StartCoroutine ("CreateGround");
 				} else {
 						StartCoroutine ("CreateGround");
-//						StartCoroutine ("CreatePipes");
+						StartCoroutine ("CreatePipes");
 				}
 		}
 	
