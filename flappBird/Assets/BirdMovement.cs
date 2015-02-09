@@ -110,11 +110,11 @@ public class BirdMovement : MonoBehaviour
 				}
 		}
 
-	void Awake()
-	{
-		Application.targetFrameRate = 60;
-		Physics.gravity = new Vector3(0, -20.0f, 0);
-		rigidbody2D.mass = 5000.0f;
+		void Awake ()
+		{
+				Application.targetFrameRate = 60;
+				Physics.gravity = new Vector3 (0, -20.0f, 0);
+				rigidbody2D.mass = 5000.0f;
 		}
 		
 		IEnumerator moveResult ()
@@ -151,7 +151,7 @@ public class BirdMovement : MonoBehaviour
 										animator.SetTrigger ("DoFlap");
 
 										if (transform.position.y < 5.37f) {
-						Jump();
+												Jump ();
 										}
 								
 									
@@ -162,43 +162,49 @@ public class BirdMovement : MonoBehaviour
 								if (rigidbody2D.velocity.y > 0) {
 										transform.rotation = Quaternion.Euler (0, 0, 30);
 								} else {
-					if(transform.eulerAngles.z >= 270 && transform.eulerAngles.z <= 360) {
-//						float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
-//						transform.rotation = Quaternion.Euler (0, 0, angle);
-						transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 5);
-					} else if(transform.eulerAngles.z >= 0){
-						transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
-									}
+										if (transform.eulerAngles.z > 270 && transform.eulerAngles.z <= 360) {
+												transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 5);
+										} else if (transform.eulerAngles.z > 265 && transform.eulerAngles.z < 275) {
+												transform.rotation = Quaternion.Euler (0, 0, 270);
+										} else if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z < 270) {
+												transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
+										}
 								}
 
 
 						} else {
 
-								if (rigidbody2D.velocity.y < -2.842f) { 
-										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
-										transform.rotation = Quaternion.Euler (0, 0, angle);
-								} else {
-										if (playDieSoundFlg) {
-												dieSound.Play ();
-												playDieSoundFlg = false;
-										}
-										float angle = Mathf.Lerp (0, -90, 2.842f / 2);
-										transform.rotation = Quaternion.Euler (0, 0, angle);
+								if (transform.eulerAngles.z >= 270 && transform.eulerAngles.z <= 360) {
+										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 5);
+								} else if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z <= 30) {
+										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
 								}
+
+//								if (rigidbody2D.velocity.y < -2.842f) { 
+//										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
+//										transform.rotation = Quaternion.Euler (0, 0, angle);
+//								} else {
+								if (playDieSoundFlg) {
+										dieSound.Play ();
+										playDieSoundFlg = false;
+								}
+//										float angle = Mathf.Lerp (0, -90, 2.842f / 2);
+//										transform.rotation = Quaternion.Euler (0, 0, angle);
+//								}
 						}    
 				}
 
 
 		}
 
-	 void Jump()
-	{
-		rigidbody2D.velocity = Vector3.zero;
-		rigidbody2D.velocity = Vector3.up * flapSpeed;
-		animator.SetTrigger ("DoFlap");
-		didFlap = false;
+		void Jump ()
+		{
+				rigidbody2D.velocity = Vector3.zero;
+				rigidbody2D.velocity = Vector3.up * flapSpeed;
+				animator.SetTrigger ("DoFlap");
+				didFlap = false;
 
-	}
+		}
 	
 		private int score = 0;
 
@@ -230,7 +236,7 @@ public class BirdMovement : MonoBehaviour
 				moveResultFlg = true;
 				scoreCon.StartCoroutine ("viewDisableScore");
 				createObject.disablePipesTrigger ();
-		animator.ResetTrigger ("DoFlap");
+				animator.ResetTrigger ("DoFlap");
 
 		}
 
