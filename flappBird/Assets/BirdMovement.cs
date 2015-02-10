@@ -32,6 +32,7 @@ public class BirdMovement : MonoBehaviour
 		SpriteRenderer gameOverToStartButton;
 		SpriteRenderer getReady;
 		SpriteRenderer explanation;
+		SpriteRenderer fadeWhite;
 
 		GameObject startButton;
 
@@ -95,6 +96,7 @@ public class BirdMovement : MonoBehaviour
 				hitSound = audioSources [2];
 				dieSound = audioSources [3];
 				swooshingSound = audioSources [4];
+				fadeWhite = GameObject.Find ("fadewhite").GetComponent<SpriteRenderer> ();
 				if (mainGamePlayFlg) {
 			
 				} else {
@@ -124,7 +126,7 @@ public class BirdMovement : MonoBehaviour
 						}
 			
 						if (moveResultFlg) {
-								if (result.transform.position.y >= 2.25f) {
+								if (result.transform.position.y >= 2.4f) {
 										moveResultFlg = false;
 										swooshingSound.Play ();
 										resultScoreCon.StartCoroutine ("countUp", score);
@@ -279,6 +281,7 @@ public class BirdMovement : MonoBehaviour
 				if (playHitSoundFlg) {
 						hitSound.Play ();
 						playHitSoundFlg = false;
+
 				}
 				StartCoroutine ("appearGameOverButton"); 
 				createObject.stopPipes ();
@@ -295,14 +298,11 @@ public class BirdMovement : MonoBehaviour
 
 		IEnumerator GameOver ()
 		{
-				// ゲームオーバーのフラグをたてる
 				gameover = true;
-				// マウス連打してたらスコアが表示されずに画面が遷移するのでその対策
-				yield return new WaitForSeconds (1f);
-				// マウスクリックしたらゲームの最初に戻る
-				while (!Input.GetMouseButtonDown(0)) {
-						yield return 0;
-				}
+				fadeWhite.enabled = true;
+				yield return new WaitForSeconds (0.0005f);
+				fadeWhite.enabled = false;
+
 		}
 		
 		IEnumerator appearStartButton ()
