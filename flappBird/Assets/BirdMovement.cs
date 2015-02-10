@@ -30,6 +30,8 @@ public class BirdMovement : MonoBehaviour
 
 		SpriteRenderer gameOverRenderer;
 		SpriteRenderer gameOverToStartButton;
+		SpriteRenderer getReady;
+		SpriteRenderer explanation;
 
 		GameObject startButton;
 
@@ -52,10 +54,20 @@ public class BirdMovement : MonoBehaviour
 		private bool playHitSoundFlg = true;
 		private bool playDieSoundFlg = true;
 		private bool playGameOverSwooshingSoundFlg = true;
+		private bool mainGamePlayFlg = false;
+
+		private float fadeTime = 0.5f;
+		private float currentRemainTime;
+
+		private bool fadeFlg = false;
+
+		private int touchCount = 0;
+
 
 		// Use this for initialization
 		void Start ()
 		{
+
 				animator = transform.GetComponentInChildren<Animator> ();
 				defaultPlayerPositionX = transform.position.x;
 				defaultPlayerPositionY = transform.position.y;
@@ -66,50 +78,85 @@ public class BirdMovement : MonoBehaviour
 				resultScoreCon = scoreResultBbject.GetComponent<ResultScoreController> ();
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
+				getReady = GameObject.Find ("getready").GetComponent<SpriteRenderer> ();
+				explanation = GameObject.Find ("explanation").GetComponent<SpriteRenderer> ();
 				startButton = GameObject.Find ("buttonStart");
 				gameOverToStartButton = startButton.GetComponent<SpriteRenderer> ();
 				startButton.collider.enabled = false;
 				gameOverToStartButton.enabled = false;
 				createObject = GameObject.Find ("CreateManager").GetComponent<CreateManager> ();
 				result = GameObject.Find ("Result");
-				transform.rotation = Quaternion.Euler (0, 0, 30);
 				AudioSource[] audioSources = GetComponents<AudioSource> ();
 				scoreGetSound = audioSources [0];
 				wingSound = audioSources [1];
 				hitSound = audioSources [2];
 				dieSound = audioSources [3];
 				swooshingSound = audioSources [4];
+				if (mainGamePlayFlg) {
+			
+				} else {
+			
+				}
+				currentRemainTime = fadeTime;
 		}
 
 		void Update ()
 		{
 
 				rigidbody2D.velocity = new Vector2 (0f, rigidbody2D.velocity.y);
-				if (!gameover) {
-						if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
-								didFlap = true;
-								wingSound.Play ();
+				if (Application.loadedLevelName != "TitleTop") {
+						if (!gameover) {
+								if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
+										touchCount += 1;
+										if (touchCount == 1) {
+												createObject.startCreatePipes ();
+										}
+										mainGamePlayFlg = true;
+										fadeFlg = true;
+										rigidbody2D.isKinematic = false;
+										didFlap = true;
+										wingSound.Play ();
+								}
+						}
+			
+						if (moveResultFlg) {
+								if (result.transform.position.y >= 2.25f) {
+										moveResultFlg = false;
+										swooshingSound.Play ();
+										resultScoreCon.StartCoroutine ("countUp", score);
+								} else {
+										if (startMoveResult) {
+												Vector3 vec = result.transform.position;
+												vec.y += 8f * Time.deltaTime;
+												result.transform.position = vec;
+										} else {
+												StartCoroutine ("moveResult");
+										}
+					
+								}	
 						}
 				}
 
-				if (moveResultFlg) {
-						if (result.transform.position.y >= 2.25f) {
-								moveResultFlg = false;
-								swooshingSound.Play ();
-								resultScoreCon.StartCoroutine ("countUp", score);
-						} else {
-								if (startMoveResult) {
-										Vector3 vec = result.transform.position;
-										vec.y += 8f * Time.deltaTime;
-										result.transform.position = vec;
-								} else {
-										StartCoroutine ("moveResult");
-								}
-								
-						}	
+				if (fadeFlg) {
+						currentRemainTime -= Time.deltaTime;
+						float alpha = currentRemainTime / fadeTime;
+						getReady.color = new Color (255, 255, 255, alpha);
+						explanation.color = new Color (255, 255, 255, alpha);
+
 				}
 		}
-
+	
+		IEnumerator fadeReady ()
+		{
+				while (getReady.color.a != 0) {
+						float alpha = getReady.color.a;
+						float afterAlpah = alpha - 1f;
+						getReady.color = new Color (255, 255, 255, afterAlpah);
+				}
+			
+				yield return new WaitForSeconds (1f);
+		}
+	
 		void Awake ()
 		{
 				Application.targetFrameRate = 60;
@@ -127,7 +174,7 @@ public class BirdMovement : MonoBehaviour
 		void FixedUpdate ()
 		{
 
-				if (Application.loadedLevelName == "TitleTop" || Application.loadedLevelName == "ReadyTop") {
+				if (Application.loadedLevelName == "TitleTop" || !mainGamePlayFlg) {
 						animator.SetTrigger ("DoFlap");
 						if (upBirdFlg) {
 								transform.position = new Vector3 (transform.position.x, transform.position.y + 0.004f, transform.position.z);
@@ -149,16 +196,16 @@ public class BirdMovement : MonoBehaviour
 						if (!gameover) {
 								if (didFlap) {
 										animator.SetTrigger ("DoFlap");
-
+						
 										if (transform.position.y < 5.37f) {
 												Jump ();
 										}
-								
-									
+						
+						
 										didFlap = false;
 								}
 					
-
+					
 								if (rigidbody2D.velocity.y > 0) {
 										transform.rotation = Quaternion.Euler (0, 0, 30);
 								} else {
@@ -170,28 +217,29 @@ public class BirdMovement : MonoBehaviour
 												transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
 										}
 								}
-
-
+					
+					
 						} else {
-
+					
 								if (transform.eulerAngles.z >= 270 && transform.eulerAngles.z <= 360) {
 										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 5);
 								} else if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z <= 45) {
 										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
 								}
-
-//								if (rigidbody2D.velocity.y < -2.842f) { 
-//										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
-//										transform.rotation = Quaternion.Euler (0, 0, angle);
-//								} else {
+					
+								//								if (rigidbody2D.velocity.y < -2.842f) { 
+								//										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
+								//										transform.rotation = Quaternion.Euler (0, 0, angle);
+								//								} else {
 								if (playDieSoundFlg) {
 										dieSound.Play ();
 										playDieSoundFlg = false;
 								}
-//										float angle = Mathf.Lerp (0, -90, 2.842f / 2);
-//										transform.rotation = Quaternion.Euler (0, 0, angle);
-//								}
-						}    
+								//										float angle = Mathf.Lerp (0, -90, 2.842f / 2);
+								//										transform.rotation = Quaternion.Euler (0, 0, angle);
+								//								}
+						}
+
 				}
 
 
@@ -272,6 +320,11 @@ public class BirdMovement : MonoBehaviour
 				}
 				
 				gameOverRenderer.enabled = true;
+		}
+
+		public void Restart ()
+		{
+				mainGamePlayFlg = false;
 		}
 
 }

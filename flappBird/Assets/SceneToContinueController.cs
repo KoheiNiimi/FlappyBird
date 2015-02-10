@@ -25,13 +25,13 @@ public class SceneToContinueController : MonoBehaviour
 		void OnMouseUp ()
 		{
 				swooshingSound.Play ();
-				StartCoroutine ("moveTitleReady");
+				StartCoroutine ("mainReset");
 		}
 	
-		IEnumerator moveTitleReady ()
+		IEnumerator mainReset ()
 		{
 				yield return new WaitForSeconds (0.5f);
-				Application.LoadLevel ("ReadyTop");
+				Application.LoadLevel ("main");
 		
 		}
 }

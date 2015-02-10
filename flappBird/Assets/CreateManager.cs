@@ -25,12 +25,8 @@ public class CreateManager : MonoBehaviour
 		void Start ()
 		{
 				defaultGround = GameObject.Find ("BG_GROUND");
-				if (Application.loadedLevelName == "TitleTop" || Application.loadedLevelName == "ReadyTop") {
-						StartCoroutine ("CreateGround");
-				} else {
-						StartCoroutine ("CreateGround");
-						StartCoroutine ("CreatePipes");
-				}
+				StartCoroutine ("CreateGround");
+
 		}
 	
 	
@@ -62,10 +58,13 @@ public class CreateManager : MonoBehaviour
 
 		private IEnumerator CreatePipes ()
 		{
+
+				yield return new WaitForSeconds (1.5f);
 				while (true) {
 				
 						yield return new WaitForSeconds (waitCreatePipeTime);
-						GameObject go = Instantiate (pipes, new Vector3 (2.5f, Random.Range (1.3f, 3f), 0), Quaternion.identity) as GameObject;
+//						GameObject go = Instantiate (pipes, new Vector3 (2.5f, Random.Range (1.3f, 3f), 0), Quaternion.identity) as GameObject;
+						GameObject go = Instantiate (pipes, new Vector3 (2.5f, 2f, 0), Quaternion.identity) as GameObject;
 						MoveBoad mb = go.GetComponent<MoveBoad> ();
 						boadList.Add (mb);
 						yield return new WaitForSeconds (waitCreatePipeTime);
@@ -103,4 +102,10 @@ public class CreateManager : MonoBehaviour
 						mb.stopMover ();
 				}
 		}
+
+		public void startCreatePipes ()
+		{
+				StartCoroutine ("CreatePipes");
+		}
+	
 }

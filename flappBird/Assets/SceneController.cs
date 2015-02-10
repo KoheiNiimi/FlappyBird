@@ -26,7 +26,7 @@ public class SceneController : MonoBehaviour
 		IEnumerator moveTitleReady ()
 		{
 				yield return new WaitForSeconds (0.5f);
-				Application.LoadLevel ("ReadyTop");
+				Application.LoadLevel ("Main");
 
 		}
 }
