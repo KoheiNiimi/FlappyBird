@@ -63,6 +63,8 @@ public class BirdMovement : MonoBehaviour
 
 		private int touchCount = 0;
 
+		private BirdSelectController birdSelectController;
+
 
 		// Use this for initialization
 		void Start ()
@@ -76,6 +78,7 @@ public class BirdMovement : MonoBehaviour
 				scoreCon = score0bject.GetComponent<ScoreController> ();
 				scoreResultBbject = GameObject.Find ("resultScore");
 				resultScoreCon = scoreResultBbject.GetComponent<ResultScoreController> ();
+				birdSelectController = gameObject.GetComponent<BirdSelectController> ();
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
 				getReady = GameObject.Find ("getready").GetComponent<SpriteRenderer> ();
@@ -110,6 +113,7 @@ public class BirdMovement : MonoBehaviour
 										touchCount += 1;
 										if (touchCount == 1) {
 												createObject.startCreatePipes ();
+												birdSelectController.changeBirdAnimation ();
 										}
 										mainGamePlayFlg = true;
 										fadeFlg = true;

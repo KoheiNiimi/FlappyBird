@@ -17,10 +17,10 @@ public class BirdSelectController : MonoBehaviour
 		void Start ()
 		{
 //				if (Application.loadedLevelName == "ReadyTop") {
-//						int random = Random.Range (0, 3);
-//						animator = GetComponentInChildren<Animator> ();
-//						animator.runtimeAnimatorController = birdList [random];
-//						PlayerPrefs.SetInt (BIRD_COLOR_KEY, random);
+				int random = Random.Range (0, 3);
+				animator = GetComponentInChildren<Animator> ();
+				animator.runtimeAnimatorController = birdList [random];
+				PlayerPrefs.SetInt (BIRD_COLOR_KEY, random);
 //				} else {
 //						int index = PlayerPrefs.GetInt (BIRD_COLOR_KEY);
 //						PlayerPrefs.DeleteKey (BIRD_COLOR_KEY);
@@ -31,6 +31,15 @@ public class BirdSelectController : MonoBehaviour
 //						
 //				}
 				
+		}
+
+		public void changeBirdAnimation ()
+		{
+				int index = PlayerPrefs.GetInt (BIRD_COLOR_KEY);
+				PlayerPrefs.DeleteKey (BIRD_COLOR_KEY);
+				animator = GetComponentInChildren<Animator> ();
+				animator.runtimeAnimatorController = birdFlappyingList [index];
+
 		}
 
 	
