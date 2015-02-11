@@ -126,17 +126,21 @@ public class BirdMovement : MonoBehaviour
 						}
 			
 						if (moveResultFlg) {
-								if (result.transform.position.y >= 2.4f) {
-										moveResultFlg = false;
-//										swooshingSound.Play ();
+								if (result.transform.position.y >= 2.3f) {
 										StartCoroutine ("playResultMoveSount");
+										result.rigidbody2D.AddForce (Vector2.zero);
+										result.rigidbody2D.isKinematic = true;
+										result.transform.position = new Vector3 (0.7f, 2.428f, -3f);
+										moveResultFlg = false;
 										resultScoreCon.StartCoroutine ("countUp", score);
 										medalController.StartCoroutine ("startApperMedal", score);
 								} else {
 										if (startMoveResult) {
-												Vector3 vec = result.transform.position;
-												vec.y += 7f * Time.deltaTime;
-												result.transform.position = vec;
+//												Vector3 vec = result.transform.position;
+//												vec.y += 7f * Time.deltaTime;
+//												result.transform.position = vec;
+												result.rigidbody2D.isKinematic = false;
+												result.rigidbody2D.AddForce (Vector2.up * 25);
 										} else {
 												StartCoroutine ("moveResult");
 										}
@@ -227,17 +231,11 @@ public class BirdMovement : MonoBehaviour
 										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
 								}
 					
-								//								if (rigidbody2D.velocity.y < -2.842f) { 
-								//										float angle = Mathf.Lerp (0, -90, -rigidbody2D.velocity.y / 2);
-								//										transform.rotation = Quaternion.Euler (0, 0, angle);
-								//								} else {
 								if (playDieSoundFlg) {
 										dieSound.Play ();
 										playDieSoundFlg = false;
 								}
-								//										float angle = Mathf.Lerp (0, -90, 2.842f / 2);
-								//										transform.rotation = Quaternion.Euler (0, 0, angle);
-								//								}
+
 						}
 
 				}
@@ -262,7 +260,7 @@ public class BirdMovement : MonoBehaviour
 		void OnTriggerEnter2D (Collider2D collider)
 		{
 				if (!gameover) {
-						score += 1;
+						score += 3;
 						scoreCon.UpdateScore (score);
 						scoreGetSound.Play ();
 				}
@@ -308,7 +306,7 @@ public class BirdMovement : MonoBehaviour
 		
 		IEnumerator appearStartButton ()
 		{
-				yield return new WaitForSeconds (2f);
+				yield return new WaitForSeconds (2.2f);
 
 				startButton.collider.enabled = true;
 				
@@ -334,7 +332,7 @@ public class BirdMovement : MonoBehaviour
 
 		IEnumerator playResultMoveSount ()
 		{
-				yield return new WaitForSeconds (0.15f);
+				yield return new WaitForSeconds (0);
 				swooshingSound.Play ();
 		}
 

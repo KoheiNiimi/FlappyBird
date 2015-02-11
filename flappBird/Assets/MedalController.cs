@@ -28,7 +28,7 @@ public class MedalController : MonoBehaviour
 		public IEnumerator startApperMedal (int score)
 		{
 
-				yield return new WaitForSeconds (1f);
+				yield return new WaitForSeconds (1.8f);
 				appearMedal (score);
 
 		}
