@@ -30,6 +30,7 @@ public class BirdMovement : MonoBehaviour
 
 		SpriteRenderer gameOverRenderer;
 		SpriteRenderer gameOverToStartButton;
+		GameObject gameOverObj;
 		SpriteRenderer getReady;
 		SpriteRenderer explanation;
 		SpriteRenderer fadeWhite;
@@ -83,6 +84,7 @@ public class BirdMovement : MonoBehaviour
 				scoreResultBbject = GameObject.Find ("resultScore");
 				resultScoreCon = scoreResultBbject.GetComponent<ResultScoreController> ();
 				birdSelectController = gameObject.GetComponent<BirdSelectController> ();
+				gameOverObj = GameObject.Find ("GameOver");
 				gameOverRenderer = GameObject.Find ("GameOver").GetComponent<SpriteRenderer> ();
 				gameOverRenderer.enabled = false;
 				getReady = GameObject.Find ("getready").GetComponent<SpriteRenderer> ();
@@ -269,8 +271,6 @@ public class BirdMovement : MonoBehaviour
 		// 何かにぶつかったら呼ばれる
 		void OnCollisionEnter2D (Collision2D collision)
 		{
-//				float vecZ = transform.eulerAngles.z;
-//				transform.rotation = Quaternion.Euler (0, 0, vecZ);
 				StartCoroutine (GameOver ());
 				if (playHitSoundFlg) {
 						StartCoroutine ("fadeWhiteAppear");
@@ -287,8 +287,7 @@ public class BirdMovement : MonoBehaviour
 				scoreCon.StartCoroutine ("viewDisableScore");
 				createObject.disablePipesTrigger ();
 				animator.ResetTrigger ("DoFlap");
-				rigidbody.velocity = Vector3.zero;
-				rigidbody.angularVelocity = Vector3.zero;
+
 
 		}
 
@@ -324,9 +323,32 @@ public class BirdMovement : MonoBehaviour
 				if (playGameOverSwooshingSoundFlg) {
 						swooshingSound.Play ();
 						playGameOverSwooshingSoundFlg = false;
+						gameOverRenderer.enabled = true;
+						StartCoroutine ("moveGameOver");
 				}
 				
-				gameOverRenderer.enabled = true;
+		}
+
+		IEnumerator moveGameOver ()
+		{
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.6f, -2);
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.58f, -2);
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.56f, -2);
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.54f, -2);
+//				yield return new WaitForSeconds (0.05f);
+//				gameOverObj.transform.position = new Vector3 (0.7f, 3.56f, -2);
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.52f, -2);
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.51f, -2);
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.50f, -2);
+				yield return new WaitForSeconds (0.02f);
+				gameOverObj.transform.position = new Vector3 (0.7f, 3.49f, -2);
 		}
 
 		public void Restart ()
