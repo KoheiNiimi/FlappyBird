@@ -140,7 +140,7 @@ public class BirdMovement : MonoBehaviour
 //												vec.y += 7f * Time.deltaTime;
 //												result.transform.position = vec;
 												result.rigidbody2D.isKinematic = false;
-												result.rigidbody2D.AddForce (Vector2.up * 25);
+												result.rigidbody2D.AddForce (Vector2.up * 30);
 										} else {
 												StartCoroutine ("moveResult");
 										}
@@ -208,7 +208,7 @@ public class BirdMovement : MonoBehaviour
 					
 					
 								if (rigidbody2D.velocity.y > 0) {
-										transform.rotation = Quaternion.Euler (0, 0, 30);
+										transform.rotation = Quaternion.Euler (0, 0, 25);
 								} else {
 										if (transform.eulerAngles.z > 270 && transform.eulerAngles.z <= 360) {
 												transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 5);
