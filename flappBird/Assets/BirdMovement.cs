@@ -97,11 +97,6 @@ public class BirdMovement : MonoBehaviour
 				dieSound = audioSources [3];
 				swooshingSound = audioSources [4];
 				fadeWhite = GameObject.Find ("fadewhite").GetComponent<SpriteRenderer> ();
-				if (mainGamePlayFlg) {
-			
-				} else {
-			
-				}
 				currentRemainTime = fadeTime;
 		}
 
@@ -150,17 +145,6 @@ public class BirdMovement : MonoBehaviour
 						explanation.color = new Color (255, 255, 255, alpha);
 
 				}
-		}
-	
-		IEnumerator fadeReady ()
-		{
-				while (getReady.color.a != 0) {
-						float alpha = getReady.color.a;
-						float afterAlpah = alpha - 1f;
-						getReady.color = new Color (255, 255, 255, afterAlpah);
-				}
-			
-				yield return new WaitForSeconds (1f);
 		}
 	
 		void Awake ()
@@ -279,6 +263,7 @@ public class BirdMovement : MonoBehaviour
 		{
 				StartCoroutine (GameOver ());
 				if (playHitSoundFlg) {
+						StartCoroutine ("fadeWhiteAppear");
 						hitSound.Play ();
 						playHitSoundFlg = false;
 
@@ -299,6 +284,12 @@ public class BirdMovement : MonoBehaviour
 		IEnumerator GameOver ()
 		{
 				gameover = true;
+				yield return new WaitForSeconds (0);
+
+		}
+		
+		IEnumerator fadeWhiteAppear ()
+		{
 				fadeWhite.enabled = true;
 				yield return new WaitForSeconds (0.0005f);
 				fadeWhite.enabled = false;
