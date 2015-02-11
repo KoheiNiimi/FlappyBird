@@ -5,17 +5,12 @@ public class SceneToContinueController : MonoBehaviour
 {
 
 		private AudioSource swooshingSound;
-		private SpriteRenderer fadeBlack;
-		private float fadeTime = 0.6f;
-		private float currentRemainTime;
 	
 		// Use this for initialization
 		void Start ()
 		{
 				AudioSource[] audioSources = GetComponents<AudioSource> ();
 				swooshingSound = audioSources [0];
-				fadeBlack = GameObject.Find ("fadeblack").GetComponent<SpriteRenderer> ();
-				currentRemainTime = fadeTime;
 	
 		}
 	
@@ -33,14 +28,9 @@ public class SceneToContinueController : MonoBehaviour
 	
 		IEnumerator mainReset ()
 		{
-				while (currentRemainTime > 0) {
-						currentRemainTime -= Time.deltaTime;
-						float Alpha = fadeBlack.color.a + (255f / currentRemainTime);
-			
-						fadeBlack.color = new Color (255, 255, 255, Alpha);
-				}
-				yield return new WaitForSeconds (0.7f);
-				Application.LoadLevel ("main");
+
+				yield return new WaitForSeconds (0.5f);
+				FadeManager.Instance.LoadLevel ("main", 0.5f);
 		
 		}
 }
