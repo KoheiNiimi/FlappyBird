@@ -1,15 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SceneToContinueController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/term2_lv1/FadeManager.cs">
     <Files>
-      <File FileName="Assets/BirdSelectController.cs" Line="3" Column="1" />
-      <File FileName="Assets/BirdMovement.cs" Line="133" Column="67" />
-      <File FileName="Assets/CreateManager.cs" Line="82" Column="20" />
-      <File FileName="Assets/SceneToContinueController.cs" Line="9" Column="31" />
+      <File FileName="Assets/BirdSelectController.cs" Line="22" Column="49" />
+      <File FileName="Assets/BirdMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets/CreateManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/SceneToContinueController.cs" Line="1" Column="1" />
       <File FileName="Assets/BackGroundController.cs" Line="1" Column="1" />
-      <File FileName="Assets/SceneController.cs" Line="42" Column="41" />
+      <File FileName="Assets/SceneController.cs" Line="1" Column="1" />
       <File FileName="Assets/ResultScoreController.cs" Line="1" Column="1" />
-      <File FileName="Assets/MedalController.cs" Line="55" Column="23" />
+      <File FileName="Assets/MedalController.cs" Line="1" Column="1" />
+      <File FileName="Assets/term2_lv1/FadeManager.cs" Line="83" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

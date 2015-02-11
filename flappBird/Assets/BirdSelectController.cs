@@ -16,20 +16,10 @@ public class BirdSelectController : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-//				if (Application.loadedLevelName == "ReadyTop") {
 				int random = Random.Range (0, 3);
 				animator = GetComponentInChildren<Animator> ();
 				animator.runtimeAnimatorController = birdList [random];
 				PlayerPrefs.SetInt (BIRD_COLOR_KEY, random);
-//				} else {
-//						int index = PlayerPrefs.GetInt (BIRD_COLOR_KEY);
-//						PlayerPrefs.DeleteKey (BIRD_COLOR_KEY);
-//						animator = GetComponentInChildren<Animator> ();
-//						animator.runtimeAnimatorController = birdFlappyingList [index];
-//							animator.SetTrigger ("DoFlap");
-//							rigidbody2D.velocity = Vector3.up * 3f;
-//						
-//				}
 				
 		}
 

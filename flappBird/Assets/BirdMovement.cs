@@ -219,6 +219,9 @@ public class BirdMovement : MonoBehaviour
 					
 								if (transform.eulerAngles.z >= 270 && transform.eulerAngles.z <= 360) {
 										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 5);
+										if (transform.eulerAngles.z < 280) {
+												transform.rotation = Quaternion.Euler (0, 0, 270);
+										}
 								} else if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z <= 45) {
 										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
 								}
