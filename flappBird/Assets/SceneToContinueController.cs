@@ -6,7 +6,7 @@ public class SceneToContinueController : MonoBehaviour
 
 		private AudioSource swooshingSound;
 		private SpriteRenderer fadeBlack;
-		private float fadeTime = 0.7f;
+		private float fadeTime = 0.6f;
 		private float currentRemainTime;
 	
 		// Use this for initialization

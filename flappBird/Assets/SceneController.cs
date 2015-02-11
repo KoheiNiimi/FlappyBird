@@ -39,7 +39,7 @@ public class SceneController : MonoBehaviour
 						
 						fadeBlack.color = new Color (255, 255, 255, Alpha);
 				}
-				yield return new WaitForSeconds (0.5f);
+				yield return new WaitForSeconds (0.6f);
 				Application.LoadLevel ("Main");
 
 		}
