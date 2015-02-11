@@ -55,6 +55,7 @@
      <Compile Include="Assets\CreateManager.cs" />
      <Compile Include="Assets\DestroyObject.cs" />
      <Compile Include="Assets\GroundMover.cs" />
+     <Compile Include="Assets\MedalController.cs" />
      <Compile Include="Assets\MoveBoad.cs" />
      <Compile Include="Assets\ReadyController.cs" />
      <Compile Include="Assets\ResultScoreController.cs" />

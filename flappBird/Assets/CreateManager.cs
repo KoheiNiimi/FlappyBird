@@ -6,6 +6,7 @@ public class CreateManager : MonoBehaviour
 {
 		public GameObject pipes;
 		public GameObject ground;
+		public GameObject kirakira;
 
 		private GameObject defaultGround;			
 	
@@ -72,6 +73,15 @@ public class CreateManager : MonoBehaviour
 				}
 				
 		}
+
+		private IEnumerator createKirakira ()
+		{
+				while (true) {
+						GameObject go = Instantiate (kirakira, new Vector3 (Random.Range (-0.17f, 0.29f), Random.Range (2.16f, 2.58f), -3.6f), Quaternion.identity) as GameObject;
+						yield return new WaitForSeconds (0.5f);
+						Destroy (go);
+				}
+		}
 	
 		public void stopCreate ()
 		{
@@ -106,6 +116,11 @@ public class CreateManager : MonoBehaviour
 		public void startCreatePipes ()
 		{
 				StartCoroutine ("CreatePipes");
+		}
+
+		public void StartCreateKirakira ()
+		{
+				StartCoroutine ("createKirakira");
 		}
 	
 }

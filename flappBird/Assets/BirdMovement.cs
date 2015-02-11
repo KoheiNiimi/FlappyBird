@@ -66,6 +66,9 @@ public class BirdMovement : MonoBehaviour
 
 		private BirdSelectController birdSelectController;
 
+		private GameObject medalObj;
+		private MedalController medalController;
+
 
 		// Use this for initialization
 		void Start ()
@@ -98,6 +101,8 @@ public class BirdMovement : MonoBehaviour
 				swooshingSound = audioSources [4];
 				fadeWhite = GameObject.Find ("fadewhite").GetComponent<SpriteRenderer> ();
 				currentRemainTime = fadeTime;
+				medalObj = GameObject.Find ("medal");
+				medalController = medalObj.GetComponent<MedalController> ();
 		}
 
 		void Update ()
@@ -125,6 +130,7 @@ public class BirdMovement : MonoBehaviour
 										moveResultFlg = false;
 										swooshingSound.Play ();
 										resultScoreCon.StartCoroutine ("countUp", score);
+										medalController.StartCoroutine ("startApperMedal", score);
 								} else {
 										if (startMoveResult) {
 												Vector3 vec = result.transform.position;
