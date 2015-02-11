@@ -260,7 +260,7 @@ public class BirdMovement : MonoBehaviour
 		void OnTriggerEnter2D (Collider2D collider)
 		{
 				if (!gameover) {
-						score += 3;
+						score += 1;
 						scoreCon.UpdateScore (score);
 						scoreGetSound.Play ();
 				}
@@ -269,6 +269,8 @@ public class BirdMovement : MonoBehaviour
 		// 何かにぶつかったら呼ばれる
 		void OnCollisionEnter2D (Collision2D collision)
 		{
+//				float vecZ = transform.eulerAngles.z;
+//				transform.rotation = Quaternion.Euler (0, 0, vecZ);
 				StartCoroutine (GameOver ());
 				if (playHitSoundFlg) {
 						StartCoroutine ("fadeWhiteAppear");
@@ -285,6 +287,8 @@ public class BirdMovement : MonoBehaviour
 				scoreCon.StartCoroutine ("viewDisableScore");
 				createObject.disablePipesTrigger ();
 				animator.ResetTrigger ("DoFlap");
+				rigidbody.velocity = Vector3.zero;
+				rigidbody.angularVelocity = Vector3.zero;
 
 		}
 
