@@ -28,9 +28,8 @@ public class SceneToContinueController : MonoBehaviour
 	
 		IEnumerator mainReset ()
 		{
-
-				yield return new WaitForSeconds (0.5f);
-				FadeManager.Instance.LoadLevel ("main", 0.5f);
+				FadeManager.Instance.LoadLevel ("main", 0.7f);
+				yield return new WaitForSeconds (0f);
 		
 		}
 }

@@ -29,8 +29,8 @@ public class SceneController : MonoBehaviour
 
 		IEnumerator moveTitleReady ()
 		{
-				yield return new WaitForSeconds (0.5f);
-				FadeManager.Instance.LoadLevel ("main", 0.5f);
+				FadeManager.Instance.LoadLevel ("main", 0.7f);
+				yield return new WaitForSeconds (0f);
 
 		}
 }

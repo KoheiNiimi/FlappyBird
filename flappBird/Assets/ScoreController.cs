@@ -9,7 +9,7 @@ public class ScoreController : MonoBehaviour
 
 		public List<SpriteRenderer> _list;
 
-	private int addDigitCount;
+		private int addDigitCount;
 	
 
 		void Awake ()
@@ -48,19 +48,19 @@ public class ScoreController : MonoBehaviour
 
 		public void AddDigit (int a)
 		{
-		addDigitCount += 1;
+				addDigitCount += 1;
 				GameObject go = new GameObject ();
 
-		go.transform.parent = this.transform;
+				go.transform.parent = this.transform;
 
-			if(addDigitCount == 1) {
-			go.transform.localPosition = new Vector3 (-0.24f, 0.3f, -2f);
+				if (addDigitCount == 1) {
+						go.transform.localPosition = new Vector3 (-0.24f, 0.3f, -2f);
 
-		}else if(addDigitCount == 2) {
-			go.transform.localPosition = new Vector3 (-0.45f, 0.3f, -2f);
-		}else {
+				} else if (addDigitCount == 2) {
+						go.transform.localPosition = new Vector3 (-0.45f, 0.3f, -2f);
+				} else {
 
-		}
+				}
 				
 				SpriteRenderer sr = go.AddComponent<SpriteRenderer> ();
 
@@ -73,7 +73,7 @@ public class ScoreController : MonoBehaviour
 
 		IEnumerator viewDisableScore ()
 		{
-				yield return new WaitForSeconds (0.5f);
+				yield return new WaitForSeconds (0.7f);
 				foreach (SpriteRenderer sp in _list) {
 						sp.enabled = false;
 				}

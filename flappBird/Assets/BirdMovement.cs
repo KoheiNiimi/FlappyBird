@@ -128,13 +128,14 @@ public class BirdMovement : MonoBehaviour
 						if (moveResultFlg) {
 								if (result.transform.position.y >= 2.4f) {
 										moveResultFlg = false;
-										swooshingSound.Play ();
+//										swooshingSound.Play ();
+										StartCoroutine ("playResultMoveSount");
 										resultScoreCon.StartCoroutine ("countUp", score);
 										medalController.StartCoroutine ("startApperMedal", score);
 								} else {
 										if (startMoveResult) {
 												Vector3 vec = result.transform.position;
-												vec.y += 8f * Time.deltaTime;
+												vec.y += 7f * Time.deltaTime;
 												result.transform.position = vec;
 										} else {
 												StartCoroutine ("moveResult");
@@ -307,7 +308,7 @@ public class BirdMovement : MonoBehaviour
 		
 		IEnumerator appearStartButton ()
 		{
-				yield return new WaitForSeconds (1.5f);
+				yield return new WaitForSeconds (2f);
 
 				startButton.collider.enabled = true;
 				
@@ -317,7 +318,7 @@ public class BirdMovement : MonoBehaviour
 
 		IEnumerator appearGameOverButton ()
 		{
-				yield return new WaitForSeconds (0.5f);
+				yield return new WaitForSeconds (0.7f);
 				if (playGameOverSwooshingSoundFlg) {
 						swooshingSound.Play ();
 						playGameOverSwooshingSoundFlg = false;
@@ -329,6 +330,12 @@ public class BirdMovement : MonoBehaviour
 		public void Restart ()
 		{
 				mainGamePlayFlg = false;
+		}
+
+		IEnumerator playResultMoveSount ()
+		{
+				yield return new WaitForSeconds (0.15f);
+				swooshingSound.Play ();
 		}
 
 }
