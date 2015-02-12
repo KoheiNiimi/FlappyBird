@@ -5,6 +5,7 @@ public class SceneToContinueController : MonoBehaviour
 {
 
 		private AudioSource swooshingSound;
+		private bool touchFlg = true;
 	
 		// Use this for initialization
 		void Start ()
@@ -22,8 +23,12 @@ public class SceneToContinueController : MonoBehaviour
 
 		void OnMouseUp ()
 		{
-				swooshingSound.Play ();
-				StartCoroutine ("mainReset");
+				if (touchFlg) {
+						swooshingSound.Play ();
+						StartCoroutine ("mainReset");
+						touchFlg = false;
+				}
+			
 		}
 	
 		IEnumerator mainReset ()

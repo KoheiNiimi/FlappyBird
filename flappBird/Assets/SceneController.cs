@@ -6,6 +6,8 @@ public class SceneController : MonoBehaviour
 		private AudioSource swooshingSound;
 
 		private SpriteRenderer fadeBlack;
+
+		private bool touchFlg = true;
 	
 
 		// Use this for initialization
@@ -22,9 +24,12 @@ public class SceneController : MonoBehaviour
 		}
 
 		void OnMouseUp ()
-		{
-				swooshingSound.Play ();
-				StartCoroutine ("moveTitleReady");
+		{	
+				if (touchFlg) {
+						swooshingSound.Play ();
+						StartCoroutine ("moveTitleReady");
+						touchFlg = false;
+				}
 		}
 
 		IEnumerator moveTitleReady ()
