@@ -8,12 +8,7 @@ public class BackGroundController : MonoBehaviour
 		public List<Sprite> backGroundList;
 
 		private SpriteRenderer[] spriteRenderes;
-
-
-		void Awake ()
-		{
-				DontDestroyOnLoad (this);
-		}
+	
 		// Use this for initialization
 		void Start ()
 		{
@@ -23,8 +18,6 @@ public class BackGroundController : MonoBehaviour
 				foreach (SpriteRenderer bg in spriteRenderes) {
 						bg.sprite = backGroundList [random];
 				}
-
-				DontDestroyOnLoad (this);
 	
 		}
 	
