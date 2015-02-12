@@ -10,8 +10,8 @@ public class CreateManager : MonoBehaviour
 
 		private GameObject defaultGround;			
 	
-		private float waitCreatePipeTime = 0.8f;
-		private float waitCreateGroundTime = 2.2f;
+		private float waitCreatePipeTime = 0.62f;
+		private float waitCreateGroundTime = 2.07f;
 	
 		public List<MoveBoad> boadList;
 		public List<MoveBoad> backgroundList;
@@ -50,7 +50,7 @@ public class CreateManager : MonoBehaviour
 						GameObject go = Instantiate (ground, new Vector3 (3.36f, 3.86f, -1f), Quaternion.identity)  as GameObject;
 						MoveBoad mb = go.GetComponent<MoveBoad> ();
 						backgroundList.Add (mb);
-						yield return new WaitForSeconds (2.87f);
+						yield return new WaitForSeconds (2.58f);
 				
 				}
 				

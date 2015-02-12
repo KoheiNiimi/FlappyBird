@@ -3,9 +3,7 @@ using System.Collections;
 
 public class MoveBoad : MonoBehaviour
 {
-
-		public float speed = 1.2f;
-
+	
 		bool playFlg = true;
 	
 		void Start ()
@@ -23,7 +21,8 @@ public class MoveBoad : MonoBehaviour
 
 				if (playFlg) {
 						Vector3 vec = transform.localPosition;
-						vec.x -= 1f * Time.deltaTime;
+//						vec.x -= 1f * Time.deltaTime;
+						vec.x -= 1.3f * Time.deltaTime;
 						transform.localPosition = vec;
 				} 
 		}
