@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class BirdMovement : MonoBehaviour
 {
 	
-		private float flapSpeed = 3.2f;
+		private float flapSpeed = 3.0f;
 
 		float defaultPlayerPositionX;
 		float defaultPlayerPositionY;
