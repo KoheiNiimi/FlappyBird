@@ -64,8 +64,7 @@ public class CreateManager : MonoBehaviour
 				while (true) {
 				
 						yield return new WaitForSeconds (waitCreatePipeTime);
-						GameObject go = Instantiate (pipes, new Vector3 (2.5f, Random.Range (1.3f, 3f), 0), Quaternion.identity) as GameObject;
-//						GameObject go = Instantiate (pipes, new Vector3 (2.5f, 2f, 0), Quaternion.identity) as GameObject;
+						GameObject go = Instantiate (pipes, new Vector3 (2.5f, Random.Range (1.1f, 3f), 0), Quaternion.identity) as GameObject;
 						MoveBoad mb = go.GetComponent<MoveBoad> ();
 						boadList.Add (mb);
 						yield return new WaitForSeconds (waitCreatePipeTime);
