@@ -7,6 +7,8 @@ public class SceneController : MonoBehaviour
 
 		private SpriteRenderer fadeBlack;
 
+		private TweenAlphaSprite tweenAlpha;
+
 		private bool touchFlg = true;
 	
 
@@ -15,6 +17,7 @@ public class SceneController : MonoBehaviour
 		{
 				AudioSource[] audioSources = GetComponents<AudioSource> ();
 				swooshingSound = audioSources [0];
+				tweenAlpha = GameObject.Find ("fadeBlack").GetComponent<TweenAlphaSprite> ();
 		}
 	
 		// Update is called once per frame
@@ -31,17 +34,23 @@ public class SceneController : MonoBehaviour
 		void OnMouseUp ()
 		{	
 				if (touchFlg) {
-						swooshingSound.Play ();
 						StartCoroutine ("moveTitleReady");
+						swooshingSound.Play ();
 						touchFlg = false;
 				}
 		}
 
 		IEnumerator moveTitleReady ()
 		{
-				transform.position = new Vector3 (0.01f, 1.17f, 0f);
-				FadeManager.Instance.LoadLevel ("main", 0.7f);
+				StartAnim ();
+				yield return new WaitForSeconds (0.5f);
+				Application.LoadLevel ("main");
 				yield return new WaitForSeconds (0f);
 
+		}
+
+		public void StartAnim ()
+		{
+				tweenAlpha.Play ();
 		}
 }

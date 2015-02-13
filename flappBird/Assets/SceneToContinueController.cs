@@ -6,12 +6,15 @@ public class SceneToContinueController : MonoBehaviour
 
 		private AudioSource swooshingSound;
 		private bool touchFlg = true;
+
+		private TweenAlphaSprite tweenAlpha;
 	
 		// Use this for initialization
 		void Start ()
 		{
 				AudioSource[] audioSources = GetComponents<AudioSource> ();
 				swooshingSound = audioSources [0];
+				tweenAlpha = GameObject.Find ("fadeBlack").GetComponent<TweenAlphaSprite> ();
 	
 		}
 	
@@ -29,8 +32,8 @@ public class SceneToContinueController : MonoBehaviour
 		void OnMouseUp ()
 		{
 				if (touchFlg) {
-						swooshingSound.Play ();
 						StartCoroutine ("mainReset");
+						swooshingSound.Play ();
 						touchFlg = false;
 				}
 			
@@ -38,10 +41,15 @@ public class SceneToContinueController : MonoBehaviour
 	
 		IEnumerator mainReset ()
 		{
-
-				transform.position = new Vector3 (0.01f, 1.17f, -2f);
-				FadeManager.Instance.LoadLevel ("main", 0.7f);
+				StartAnim ();
+				yield return new WaitForSeconds (0.5f);
+				Application.LoadLevel ("main");
 				yield return new WaitForSeconds (0f);
 		
+		}
+
+		public void StartAnim ()
+		{
+				tweenAlpha.Play ();
 		}
 }
