@@ -232,11 +232,6 @@ public class BirdMovement : MonoBehaviour
 								} else if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z <= 45) {
 										transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
 								}
-					
-								if (playDieSoundFlg) {
-										dieSound.Play ();
-										playDieSoundFlg = false;
-								}
 
 						}
 
@@ -272,6 +267,10 @@ public class BirdMovement : MonoBehaviour
 		void OnCollisionEnter2D (Collision2D collision)
 		{
 				StartCoroutine (GameOver ());
+				if (playDieSoundFlg && collision.gameObject.name.Equals ("lv1_background_ground1") == false) {
+						dieSound.Play ();
+						playDieSoundFlg = false;
+				}
 				if (playHitSoundFlg) {
 						StartCoroutine ("fadeWhiteAppear");
 						hitSound.Play ();
@@ -339,8 +338,6 @@ public class BirdMovement : MonoBehaviour
 				gameOverObj.transform.position = new Vector3 (0.7f, 3.56f, -2);
 				yield return new WaitForSeconds (0.02f);
 				gameOverObj.transform.position = new Vector3 (0.7f, 3.54f, -2);
-//				yield return new WaitForSeconds (0.05f);
-//				gameOverObj.transform.position = new Vector3 (0.7f, 3.56f, -2);
 				yield return new WaitForSeconds (0.02f);
 				gameOverObj.transform.position = new Vector3 (0.7f, 3.52f, -2);
 				yield return new WaitForSeconds (0.02f);
