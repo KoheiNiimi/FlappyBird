@@ -32,6 +32,7 @@ public class SceneToContinueController : MonoBehaviour
 		void OnMouseUp ()
 		{
 				if (touchFlg) {
+						transform.position = new Vector3 (0.01f, 1.17f, -2f);
 						StartCoroutine ("mainReset");
 						swooshingSound.Play ();
 						touchFlg = false;

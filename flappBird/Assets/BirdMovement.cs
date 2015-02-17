@@ -180,10 +180,10 @@ public class BirdMovement : MonoBehaviour
 				if (Application.loadedLevelName == "TitleTop" || !mainGamePlayFlg) {
 						animator.SetTrigger ("DoFlap");
 						if (upBirdFlg) {
-								transform.position = new Vector3 (transform.position.x, transform.position.y + 0.004f, transform.position.z);
+								transform.position = new Vector3 (transform.position.x, transform.position.y + 0.0043f, transform.position.z);
 						}
 						if (downBirdFlg) {
-								transform.position = new Vector3 (transform.position.x, transform.position.y - 0.004f, transform.position.z);
+								transform.position = new Vector3 (transform.position.x, transform.position.y - 0.0043f, transform.position.z);
 						}
 						if (transform.position.y > defaultPlayerPositionY + 0.04f) {
 								downBirdFlg = true;
@@ -217,7 +217,8 @@ public class BirdMovement : MonoBehaviour
 										} else if (transform.eulerAngles.z > 265 && transform.eulerAngles.z < 275) {
 												transform.rotation = Quaternion.Euler (0, 0, 270);
 										} else if (transform.eulerAngles.z >= 0 && transform.eulerAngles.z < 270) {
-												transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 2);
+												// default -2
+												transform.rotation = Quaternion.Euler (0, 0, transform.eulerAngles.z - 3);
 										}
 								}
 					

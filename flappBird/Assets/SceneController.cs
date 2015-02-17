@@ -34,6 +34,7 @@ public class SceneController : MonoBehaviour
 		void OnMouseUp ()
 		{	
 				if (touchFlg) {
+						transform.position = new Vector3 (0.01f, 1.17f, 0f);
 						StartCoroutine ("moveTitleReady");
 						swooshingSound.Play ();
 						touchFlg = false;
